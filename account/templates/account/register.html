@@ -1,53 +1,203 @@
-{% extends 'auth_base.html' %}
+{% extends "account/base.html" %}
+
+{% load static %}
+<!-- Loading Path to static files -->
+{% load staticfiles %}
+
+{% load crispy_forms_tags %}
+
+{% block title %} REGISTER {% endblock %}
+
 
 {% block content %}
-  {% load crispy_forms_tags %}
-  <div class="card-body p-0">
-    <!-- Nested Row within Card Body -->
-    <div class="row">
-      <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-      <div class="col-lg-6">
-        <div class="p-5">
-          <div class="text-center">
-            <h1 class="h4 text-gray-900 mb-4">Create an account!</h1> 
-          </div>
-          <p>Please, sign up using the following form:</p>
-          <form action="." method="post" class="user" id="id_user_form" data-filter-list="{% url 'filter_user_list' %}">
-            <!--<div class="form-group row">
-              <div class="col-sm-6 mb-3 mb-sm-0">
-                <input type="text" name="username" class="form-control form-control-user" id="username" placeholder="Username">
-              </div>
-              <div class="col-sm-6">
-                <input type="text"  name="first_name" class="form-control form-control-user" id="first_name" placeholder="First Name">
-              </div>
-            </div>
-            <div class="form-group">
-              <input type="email" name="email" class="form-control form-control-user" id="email" placeholder="Email Address">
-            </div>
-            <div class="form-group row">
-              <div class="col-sm-6 mb-3 mb-sm-0">
-                <input type="password" name="password" class="form-control form-control-user" id="password" placeholder="Password">
-              </div>
-              <div class="col-sm-6">
-                <input type="password" name="password2" class="form-control form-control-user" id="password2" placeholder="Repeat Password">
-              </div>
-            </div>
-          -->
-            {{user_form|crispy}}
 
-            {% csrf_token %}
-            <input type="submit" value="Register Account" class="btn btn-primary btn-user btn-block"/>
-          </form>
-          <hr>
-          <div class="text-center">
-            <a class="small" href="{% url 'password_reset' %}">Forgot Password?</a>
-          </div>
-          <div class="text-center">
-            <a class="small" href="{% url 'login' %}">Already have an account? Login!</a>
-          </div>
+    <!----Register Modal Start---->
+    <div class="ms_register_popup">
+
+        <div class="centered-modal" role="dialog">
+            <div class="register_dialog">
+
+
+                {% if messages %}
+                    {% for message in messages %}
+                    <div style="text-align: center;" {% if message.tags == 'warning' %} class="alert alert-danger alert-dismissible fade show" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %} role="alert">
+                        {{ message|safe }}
+                        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endfor %}
+                    <br>
+                {% endif %}
+
+
+                <!-- Modal content-->
+                <div class="modal-content">
+
+                    <form method="post" class="needs-validation" novalidate>
+
+                        {% csrf_token %}
+
+                        <div class="modal-body">
+                            <div class="ms_register_img">
+                                <img src="{% static 'images/register_img.png' %}" alt="" class="img-fluid" />
+                            </div>
+
+                            <div class="ms_register_form">
+                                <h2>Register / Sign Up</h2>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter Firstname" required>
+                                            <div class="invalid-feedback">
+                                                This field is required.
+                                            </div>
+
+                                            <span class="form_icon">
+                                                <i class="fa_icon form-user" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Lastname" required>
+                                            <div class="invalid-feedback">
+                                                This field is required.
+                                            </div>
+
+                                            <span class="form_icon">
+                                                <i class="fa_icon form-user" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="form-group">
+                                    <input type="text" id="username" name="username" placeholder="Enter Username" class="form-control" required>
+                                    <div class="invalid-feedback">
+                                        This field is required.
+                                    </div>
+
+                                    <span class="form_icon">
+                                        <i class="fa_icon form-user" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="email" id="email" name="email" placeholder="Enter Email" class="form-control" required>
+
+                                    <div id="error"></div>
+
+                                    <div class="invalid-feedback">
+                                        This field is required.
+                                    </div>
+
+                                    <span class="form_icon">
+                                        <i class="fa_icon form-envelope" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="password" id="password" name="password" placeholder="Enter Password" class="form-control" required>
+                                    <div class="invalid-feedback">
+                                        This field is required.
+                                    </div>
+
+                                    <span class="form_icon">
+                                        <i class="fa_icon form-lock" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" id="password2" name="password2" placeholder="Confirm Password" class="form-control" required>
+                                    <div class="invalid-feedback">
+                                        Please make sure your passwords match.
+                                    </div>
+
+                                    <span class="form_icon">
+                                        <i class=" fa_icon form-lock" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+
+
+                                <div class="remember_checkbox">
+                                    <label>I am an Artist
+                                        <input type="checkbox" id="artist" name="artist" value="1">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+
+                                <input type="submit" class="ms_btn" style="cursor: pointer" value=" register "/>
+                                <!--
+                                <button type="submit" style="cursor: pointer" class="ms_btn reg_btn"> register </button>
+                                -->
+
+                                <!--
+                                <a href="#" class="ms_btn">register now</a>
+                                -->
+
+                                <p>Already Have An Account? <a href="{% url 'login' %}" class="ms_modal hideCurrentModel">login here</a></p>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-{% endblock %} 
 
+    </div>
+
+    {% block javascript %}
+        <script type="text/javascript">
+
+            var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var user_email = document.getElementById("email");
+            // var user_email = $("#email").val();
+
+            user_email.onblur = function()
+            {
+                if ( !(user_email.value.match(mailformat)) )
+                {
+                    user_email.classList.add('invalid');
+                    error.innerHTML = 'Please enter a correct email \n \n e.g. john-doe@gmail.com'
+                }
+            };
+
+            user_email.onfocus = function() {
+                if (this.classList.contains('invalid')) {
+                    // remove the "error" indication, because the user wants to re-enter something
+                    this.classList.remove('invalid');
+                    error.innerHTML = "";
+                }
+            };
+
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.querySelectorAll('.needs-validation');
+
+                // Loop over them and prevent submission
+                Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+
+                        if ( !form.checkValidity() ) {
+                            // user_email.classList.add('invalid');
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+            })()
+
+        </script>
+    {% endblock %}
+
+{% endblock %}

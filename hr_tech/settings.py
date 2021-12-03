@@ -31,6 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+AUTH_USER_MODEL = "account.User"
 
 # Application definition
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'account',
     'crispy_forms',
 ]
 
@@ -155,10 +157,9 @@ DEFAULT_TO_EMAIL = os.getenv('DEFAULT_TO_EMAIL')
 # LOGOUT_URL = 'logout'
 # LOGOUT_REDIRECT_URL = 'dashboard'
 
-"""
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'account.authentication.EmailAuthBackend'
 ]
-"""
 

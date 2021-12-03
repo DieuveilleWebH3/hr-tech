@@ -1,0 +1,55 @@
+
+{% extends "account/base_out.html" %}
+
+{% load static %}
+<!-- Loading Path to static files -->
+{% load staticfiles %}
+
+{% load crispy_forms_tags %}
+
+{% block title %} Register {% endblock %}
+
+
+{% block content %}
+    <!----Upload and Share Wrapper Start---->
+    <div class="ms_upload_wrapper marger_top60">
+
+        <div class="ms_upload_box">
+            <h2> Register </h2>
+
+            <br/>
+            <br>
+            <br/>
+
+            <p>
+                The registration functionality has been disabled. You can not create a new account !
+            </p>
+
+            <br/>
+            <br/>
+
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <span style="margin-right: 5px;">
+                        <a href="#" class="fw-medium" style="color: #e4032e;">
+                            Contact the Admin to allow user registration.
+                        </a>
+                    </span>
+
+                </div>
+            </div>
+
+            <br/>
+            <br/>
+            <br/>
+        </div>
+        <div class=" marger_top60">
+
+        </div>
+    </div>
+    <!----Main div close---->
+
+{% endblock %}
+
+

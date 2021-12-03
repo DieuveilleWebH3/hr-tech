@@ -248,7 +248,7 @@ def activate(request, uidb64, token, backend='django.contrib.auth.backends.Model
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [settings.DEFAULT_TO_EMAIL, ]
         send_mail(subject, message, email_from, recipient_list, fail_silently=False)
-        
+
         messages.success(request, "Your Account has been successfully activated ! ")
 
         return redirect('profile')
@@ -283,8 +283,8 @@ def profile(request):
 def edit(request):
     if request.method == 'POST':
         user_form = UserEditForm(instance=request.user, data=request.POST, files=request.FILES)
-        
-        if user_form.is_valid():  
+
+        if user_form.is_valid():
             # we request the user
             user = request.user
 
@@ -307,11 +307,11 @@ def edit(request):
             messages.success(request, 'Profile updated successfully')
         else:
             messages.warning(request, 'Error updating your profile')
-            
+
         return redirect('profile')
     else:
         user_form = UserEditForm(instance=request.user)
-        
+
     return redirect('profile')
 
 
@@ -330,20 +330,27 @@ def change_password(request):
     return redirect('profile')
 
 
-@login_required 
+@login_required
 def change_status_registration(request):
-    
-    # we request the user
-    user = request.user
+    try:
+        allow = AllowRegistration.objects.all()
 
-    if user.is_staff:
-        allow_register = AllowRegistration.objects.get(id=1)
-        if allow_register.status:
-            allow_register.status = False
-        else:
-            allow_register.status = True
-        
-        allow_register.save()
+        # we request the user
+        user = request.user
+
+        if allow.count() > 0:
+
+            if user.is_staff:
+                allow_register = AllowRegistration.objects.get(id=1)
+                if allow_register.status:
+                    allow_register.status = False
+                else:
+                    allow_register.status = True
+
+                allow_register.save()
+
+    except AllowRegistration.DoesNotExist:
+        pass
 
     return redirect('/')
 
