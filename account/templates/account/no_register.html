@@ -1,55 +1,57 @@
-
-{% extends "account/base_out.html" %}
+{% extends "account/base.html" %}
 
 {% load static %}
-<!-- Loading Path to static files -->
-{% load staticfiles %}
 
-{% load crispy_forms_tags %}
+{% block title %}Register Account | Total - Incident Analytics.{% endblock %}
 
-{% block title %} Register {% endblock %}
-
-
-{% block content %}
-    <!----Upload and Share Wrapper Start---->
-    <div class="ms_upload_wrapper marger_top60">
-
-        <div class="ms_upload_box">
-            <h2> Register </h2>
-
-            <br/>
-            <br>
-            <br/>
-
-            <p>
-                The registration functionality has been disabled. You can not create a new account !
-            </p>
-
-            <br/>
-            <br/>
-
-            <div class="row">
-                <div class="col-sm-12">
-
-                    <span style="margin-right: 5px;">
-                        <a href="#" class="fw-medium" style="color: #e4032e;">
-                            Contact the Admin to allow user registration.
-                        </a>
-                    </span>
-
-                </div>
-            </div>
-
-            <br/>
-            <br/>
-            <br/>
-        </div>
-        <div class=" marger_top60">
-
-        </div>
-    </div>
-    <!----Main div close---->
-
+{% block head_css %}
 {% endblock %}
 
 
+{% block content %}
+                               
+    <div class="card-body p-4"> 
+
+        <div class="text-center">
+            <a href="#" class="mb-5 d-block auth-logo">
+                <img src="{% static 'images/logo.svg' %}" alt="Total logo" height="50" class="logo logo-dark">
+                <img src="{% static 'images/logo.svg' %}" alt="Total logo" height="50" class="logo logo-light">
+            </a>
+        </div>
+
+        <div class="text-center mt-2">
+            <h4 style="color: #164194;">Register Account</h4>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+            <div style="text-align: center;" {% if message.tags == 'warning' %} class="alert alert-danger alert-dismissible fade show" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %} role="alert">
+                {{ message|safe }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="p-1 mt-4">
+            <div class="alert text-center mb-4" style="background-color: #e8ecf5;" role="alert">
+                <br/>
+                The registration functionnality has been disabled. You can not create a new account ! 
+                <br/>
+                <br/>
+                Talk to your Admin to allow user registration.
+                <br/>
+                <br/>
+                <br/>
+            </div>
+
+        </div>
+
+    </div>
+
+    {% block javascript %}
+    {% endblock %}
+
+{% endblock %}
+        

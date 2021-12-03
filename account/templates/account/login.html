@@ -1,111 +1,93 @@
-{% extends "base_account.html" %}
+
+{% extends "account/base.html" %}
 
 {% load static %}
-<!-- Loading Path to static files -->
-{% load staticfiles %}
 
-{% load crispy_forms_tags %}
-
-{% block title %} LOGIN {% endblock %}
+{% block title %}Log In | Incident Analytics App{% endblock %}
 
 {% block head_css %}
 {% endblock %}
 
-{% block head_javascript %}
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-{% endblock %}
 
 {% block content %}
+        
+    <div class="card-body p-4"> 
 
-    <!----Login Modal Start---->
-    <div class="ms_register_popup">
-
-        <!----Login Popup Start---->
-        <div class="centered-modal" role="dialog">
-            <div class="login_dialog">
-
-
-                {% if messages %}
-                    {% for message in messages %}
-                    <div style="text-align: center;" {% if message.tags == 'warning' %} class="alert alert-danger alert-dismissible fade show" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %} role="alert">
-                        {{ message|safe }}
-                        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    {% endfor %}
-                    <br>
-                {% endif %}
-
-
-                <!-- Modal content-->
-                <div class="modal-content">
-
-                    <form method="post" class="needs-validation" novalidate>
-
-                        {% csrf_token %}
-
-                        <div class="modal-body">
-                            <div class="ms_register_img">
-                                <img src="{% static 'images/register_img.png' %}" alt="" class="img-fluid"/>
-                            </div>
-
-                            <div class="ms_register_form">
-                                <h2>login / Sign in</h2>
-
-                                <div class="form-group">
-                                    <input type="text" id="username" name="username" placeholder="Enter Your Email or Username" class="form-control" required>
-
-                                    <div class="invalid-feedback">
-                                        This field is required.
-                                    </div>
-
-                                    <span class="form_icon">
-                                        <i class="fa_icon form-envelope" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="password" id="password" name="password" placeholder="Enter Password" class="form-control" required>
-
-                                    <div class="invalid-feedback">
-                                        This field is required.
-                                    </div>
-
-                                    <span class="form_icon">
-                                        <i class="fa_icon form-lock" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                                <div class="remember_checkbox">
-                                    <label>Keep me signed in
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-
-                                <div class="ms_upload_btn">
-                                    <input type="submit" class="ms_btn" style="cursor: pointer" value=" login now "/>
-                                    <!--
-                                    <button type="submit" style="cursor: pointer" class="ms_btn"> login now </button>
-                                    -->
-                                </div>
-                                <!--
-                                <a href="#" class="ms_btn" target="_blank">login now</a>
-                                -->
-                                <div class="popup_forgot">
-                                    <a href="{% url 'password_reset' %}">Forgot Password ?</a>
-                                </div>
-                                <p>Don't Have An Account? <a href="{% url 'register' %}" class="ms_modal1 hideCurrentModel">register here</a></p>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div class="text-center">
+            <a href="#" class="mb-5 d-block auth-logo">
+                <img src="{% static 'images/logo.svg' %}" alt="" height="50" class="logo logo-dark">
+                <img src="{% static 'images/logo.svg' %}" alt="" height="50" class="logo logo-light">
+            </a>
         </div>
+
+
+        <div class="text-center mt-2">
+            <h5 style="color: #164194;">Welcome Back !</h5>
+            <p class="text-muted">Sign in to continue to Total - Incident Analytics App.</p>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+            <div style="text-align: center;" {% if message.tags == 'warning' %} class="alert alert-danger alert-dismissible fade show" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %} role="alert">
+                {{ message|safe }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="p-2 mt-4">
+            
+            <form method="post" class="needs-validation" novalidate>
+
+                {% csrf_token %}
+
+                {% load crispy_forms_tags %}
+
+                <div class="mb-3">
+                    <label class="form-label" for="username">Username *</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+                    <div class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="float-end">
+                        <a href="{% url 'password_reset' %}" class="text-muted">Forgot password?</a>
+                    </div>
+                    <label class="form-label" for="password">Password *</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+                    <div class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="auth-remember-check">
+                    <label class="form-check-label" for="auth-remember-check">Remember me</label>
+                </div>
+                
+                <div class="mt-3 text-end">
+                    <button class="btn btn-primary w-sm waves-effect waves-light" style="background-color: #164194;" type="submit">Log In</button>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <p class="mb-0">Don't have an account ? 
+                        <a href="{% url 'register' %}" class="fw-medium" style="color: #e4032e;">
+                            <br/>
+                            <span> SIGN UP NOW </span>
+                        </a> 
+                    </p>
+                </div>
+            </form>
+
+        </div>
+
     </div>
 
-    {% block javascript %}
-
+    {% block javascript %}                
         <script type="text/javascript">
 
         // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -133,3 +115,4 @@
     {% endblock %}
 
 {% endblock %}
+        

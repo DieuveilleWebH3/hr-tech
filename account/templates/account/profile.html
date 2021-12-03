@@ -1,744 +1,156 @@
-<!DOCTYPE html>
-
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en">
-<!--<![endif]-->
-<!-- Begin Head -->
+{% extends "base.html" %}
 
 {% load static %}
-<!-- Loading Path to static files -->
-{% load staticfiles %}
 
 {% load crispy_forms_tags %}
 
-    <head>
-        <title> Profile   |   D Zic Stream</title>
-        <meta charset="utf-8">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta name="description" content="Music">
-        <meta name="keywords" content="">
-        <meta name="author" content="kamleshyadav">
-        <meta name="MobileOptimized" content="320">
-        <!--Start Style -->
-        <link rel="stylesheet" type="text/css" href="{% static 'css/fonts.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'js/plugins/swiper/css/swiper.min.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'js/plugins/nice_select/nice-select.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'js/plugins/player/volume.css' %}">
+{% block title %}Profile | Incident Analytics App{% endblock %}
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% block content %}
 
-        <link rel="stylesheet" type="text/css" href="{% static 'js/plugins/scroll/jquery.mCustomScrollbar.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-
-        <!-- Favicon Link -->
-        <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
-
-        <!-- Adding Swal -->
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-        <style>
-            .tooltip {
-              position: relative;
-              display: inline-block;
-              border-bottom: 1px dotted black;
-            }
-
-            .tooltip .tooltiptext {
-              visibility: hidden;
-              width: 120px;
-              background-color: black;
-              color: #fff;
-              text-align: center;
-              border-radius: 6px;
-              padding: 5px 0;
-
-              /* Position the tooltip */
-              position: absolute;
-              z-index: 1;
-            }
-
-            .tooltip:hover .tooltiptext {
-              visibility: visible;
-            }
-        </style>
-
-    </head>
-
-    <body>
-        <!----Loader Start---->
-        <div class="ms_loader">
-            <div class="wrap">
-            <img src="{% static 'images/loader.gif' %}" alt="">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0">Profile </h4>
             </div>
         </div>
-        <!----Main Wrapper Start---->
-        <div class="ms_main_wrapper">
-            <!---Side Menu Start--->
-            <div class="ms_sidemenu_wrapper">
-                <div class="ms_nav_close">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
-                </div>
-                <div class="ms_sidemenu_inner">
-                    <div class="ms_logo_inner">
-                        <div class="ms_logo">
-                            <a href="#"><img src="{% static 'images/logo.png' %}" alt="" class="img-fluid"/></a>
-                        </div>
-                        <div class="ms_logo_open">
-                            <a href="#"><img src="{% static 'images/open_logo.png' %}" alt="" class="img-fluid"/></a>
-                        </div>
-                    </div>
-                    <div class="ms_nav_wrapper">
-                        <ul>
-                            <li><a href="#" class="active" title="Discover">
-                            <span class="nav_icon">
-                                <span class="icon icon_discover"></span>
-                            </span>
-                            <span class="nav_text">
-                                discover
-                            </span>
-                            </a>
-                            </li>
-                            <li><a href="#" title="Albums">
-                            <span class="nav_icon">
-                                <span class="icon icon_albums"></span>
-                            </span>
-                            <span class="nav_text">
-                                albums
-                            </span>
-                            </a>
-                            </li>
-                            <li><a href="#" title="Artists">
-                            <span class="nav_icon">
-                                <span class="icon icon_artists"></span>
-                            </span>
-                            <span class="nav_text">
-                                artists
-                            </span>
-                            </a>
-                            </li>
-                            <li><a href="#" title="Genres">
-                            <span class="nav_icon">
-                                <span class="icon icon_genres"></span>
-                            </span>
-                            <span class="nav_text">
-                                genres
-                            </span>
-                            </a>
-                            </li>
-                            <li><a href="#" title="Top Tracks">
-                            <span class="nav_icon">
-                                <span class="icon icon_tracks"></span>
-                            </span>
-                            <span class="nav_text">
-                                top tracks
-                            </span>
-                            </a>
-                            </li>
-                            <li><a href="#" title="Free Music">
-                            <span class="nav_icon">
-                                <span class="icon icon_music"></span>
-                            </span>
-                            <span class="nav_text">
-                                free music
-                            </span>
-                            </a>
-                            </li>
-                            <li><a href="#" title="Stations">
-                            <span class="nav_icon">
-                                <span class="icon icon_station"></span>
-                            </span>
-                            <span class="nav_text">
-                                stations
-                            </span>
-                            </a>
-                            </li>
-                        </ul>
-                        <ul class="nav_downloads">
-                            <li><a href="#" title="Downloads">
-                            <span class="nav_icon">
-                                <span class="icon icon_download"></span>
-                            </span>
-                            <span class="nav_text">
-                                downloads
-                            </span>
-                            </a>
-                            </li>
-                            <li><a href="#" title="Purchased">
-                            <span class="nav_icon">
-                                <span class="icon icon_purchased"></span>
-                            </span>
-                            <span class="nav_text">
-                                purchased
-                            </span>
-                            </a>
-                            </li>
-                            <li><a href="#" title="Favourites">
-                            <span class="nav_icon">
-                                <span class="icon icon_favourite"></span>
-                            </span>
-                            <span class="nav_text">
-                                favourites
-                            </span>
-                            </a>
-                            </li>
-                            <li><a href="#" title="History">
-                            <span class="nav_icon">
-                                <span class="icon icon_history"></span>
-                            </span>
-                            <span class="nav_text">
-                                history
-                            </span>
-                            </a>
-                            </li>
-                        </ul>
-                        <ul class="nav_playlist">
-                            <li><a href="#" title="Featured Playlist">
-                            <span class="nav_icon">
-                                <span class="icon icon_fe_playlist"></span>
-                            </span>
-                            <span class="nav_text">
-                                featured playlist
-                            </span>
-                            </a>
-                            </li>
-                            <li><a href="#" title="Create Playlist">
-                            <span class="nav_icon">
-                                <span class="icon icon_c_playlist"></span>
-                            </span>
-                            <span class="nav_text">
-                                create playlist
-                            </span>
-                            </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    </div>
+    <!-- end page title -->
 
-            <!---Main Content Start--->
-            <div class="padder_top80">
-                <!---Header--->
-                <div class="ms_header">
-                    <div class="ms_top_right">
-
-                        <div class="ms_top_btn">
-
-                            <a href="javascript:;" class="ms_admin_name"> {{ user.username }}
-
-                            {% if user.photo %}
-                                <img class="rounded-circle header-profile-user" src="{{user.photo.url}}"
-                                        alt="{{user.username}} Avatar">
-                            {% else %}
-                                <span class="ms_pro_name">
-                                    {{initial}}
-                                </span>
-                            {% endif %}
-                            </a>
-
-                            <ul class="pro_dropdown_menu" style="margin-right: 50px; padding-right: 50px">
-                                <li><a href="{% url 'profile' %}">Profile</a></li>
-                                <li><a href="#" target="_blank">Pricing Plan</a></li>
-                                <li><a href="#" target="_blank">Blog</a></li>
-                                <li><a href="#">Setting</a></li>
-                                <li><a href="{% url 'logout' %}">Logout</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!----Edit Profile Wrapper Start---->
-                <div class="ms_profile_wrapper">
-
-                    {% if messages %}
-                        {% for message in messages %}
-                        <div style="text-align: center;" {% if message.tags == 'warning' %} class="alert alert-danger alert-dismissible fade show" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %} role="alert">
-                            {{ message|safe }}
-                            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        {% endfor %}
-                        <br>
-                    {% endif %}
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">
 
 
+                    <h4 class="card-title">Edit your personal Info</h4>
+                    <p class="card-title-desc"> </p>
 
-                     <!-- Nav tabs -->
-                    <ul class="nav" id="nav-tab" role="tablist" style="display: flex; justify-content: center;">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#navtabs-profile" role="tab" aria-controls="navtabs-profile" aria-selected="true">
-                                <h1 class="d-none d-sm-block">Edit Profile</h1>
+                            <a class="nav-link active" data-bs-toggle="tab" href="#navtabs-home" role="tab">
+                                <span class="d-block d-sm-none"><i class="fas fa-user"></i></span>
+                                <span class="d-none d-sm-block">Edit Profile</span>
                             </a>
                         </li>
-
-                        <li>
-                            <a>
-                                <h1 class="d-none d-sm-block" style="white-space: pre;">     /     </h1>
-                            </a>
-                        </li>
-
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#navtabs-password" role="tab"  aria-controls="navtabs-password" aria-selected="false">
-                                <h1 class="d-none d-sm-block">Edit Password</h1>
+                            <a class="nav-link" data-bs-toggle="tab" href="#navtabs-profile" role="tab">
+                                <span class="d-block d-sm-none"><i class="fas fa-user-lock"></i></span>
+                                <span class="d-none d-sm-block">Edit Password</span>
                             </a>
                         </li>
                     </ul>
 
-
-                    <!-- <h1>Edit Profile</h1> -->
-
                     <!-- Tab panes -->
-                    <div class="tab-content p-3 text-muted" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="navtabs-profile" role="tabpanel" aria-labelledby="navtabs-profile-tab">
-                            <div class="ms_profile_box">
+                    <div class="tab-content p-3 text-muted">
+                        <div class="tab-pane active" id="navtabs-home" role="tabpanel">
 
-                                <div class="ms_pro_img">
-                                    {% if user.photo %}
-                                        <img src="{{user.photo.url}}" id="output_img" alt="{{user.username}} Avatar" class="img-fluid">
-                                    {% else %}
-                                        <img src="{% static 'images/logo.png' %}" alt="Default Avatar" id="output_img" class="img-fluid">
+                            <div style="width: 95%; margin: auto;" class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Edit your account </h6>
+                                </div>
+                                <div class="card-body">   
+                                    <h1 style="text-align: center;">Edit your account</h1>
+                                    <p style="text-align: center;" >You can edit your account using the following form:</p>
+
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                        <div style="text-align: center;" {% if message.tags == 'warning' %} class="alert alert-danger alert-dismissible fade show" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %} role="alert">
+                                            {{ message|safe }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        {% endfor %}
                                     {% endif %}
 
-                                    <div class="pro_img_overlay">
-                                        <i class="fa_icon edit_icon"></i>
-                                    </div>
-                                </div>
-
-                                <div class="ms_pro_form">
-
-                                    <form style="grid-area: form;" action="{% url 'edit' %}" method="post" id="edit_form" enctype="multipart/form-data">
+                                    <form style="grid-area: form; width: 60%; margin: auto;" action="{% url 'edit' %}" method="post" enctype="multipart/form-data">
 
                                         {% csrf_token %}
 
-                                        <div class="form-group">
-                                            <label for="first_name">Your FirstName *</label>
-                                            <input type="text" id="first_name" name="first_name" value="{{user.first_name}}" class="form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="last_name">Your LastName *</label>
-                                            <input type="text" id="last_name" name="last_name" value="{{user.last_name}}" class="form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="username">Your Username *</label>
-                                            <input type="text" id="username" name="username" value="{{user.username}}" class="form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">Your Email *</label>
-                                            <input type="email" id="email" name="email" value="{{user.email}}" class="form-control" readonly>
-                                        </div>
+                                        {{ user_form|crispy }}
 
+                                        <div class="padding" style="height: 8px;"></div>
+                                        
                                         <div id="div_id_date_of_birth" class="form-group">
-                                            <label for="date_of_birth"> Date of birth</label>
-
-                                            <input type="date" id="date_of_birth" name="date_of_birth" class="dateinput form-control" value="{{user.date_of_birth}}">
+                                            <label for="id_date_of_birth" class="requiredField">
+                                                Date of birth
+                                            </label> 
+                                            <div class=""> 
+                                                <input type="date" name="date_of_birth" class="dateinput form-control" id="date_of_birth" placeholder="{{user.date_of_birth}}" value="{{user.date_of_birth}}"> 
+                                            </div>
                                         </div>
+
+                                        <div class="padding" style="height: 8px;"></div>
 
                                         <div id="div_id_photo" class="form-group">
-                                            <label for="photo" class="">
+                                            <label for="id_photo" class="">
                                                 Photo
-                                            </label>
+                                            </label> 
+                                            <div class=""> 
+                                                <input type="file" name="photo" class="form-control-file" id="id_photo" accept="image/*"> 
+                                                <!-- 
+                                                    <input type="file" name="photo" accept="image/*" class="form-control-file" class="clearablefileinput form-control-file" id="id_photo">  
+                                                -->  
+                                            </div>
+                                        </div> 
 
-                                            <input type="file" name="photo" class="form-control" id="photo" accept="image/*">
-                                        </div>
+                                        <div class="padding" style="height: 12px;"></div>
 
-                                        <div class="pro-form-btn text-center marger_top15">
-                                            <a href="{% url 'profile' %}" class="ms_btn">cancel</a>
-                                            <a onclick="subForm()" style="color: white; cursor: pointer;" class="ms_btn">save</a>
-                                        </div>
-
+                                        <button  type='submit' class="float-right btn btn-primary btn-user">Save changes</button>
                                     </form>
                                 </div>
                             </div>
+
+                            <p class="mb-0">
+                                
+                            </p>
                         </div>
+                        
+                        <div class="tab-pane" id="navtabs-profile" role="tabpanel">
 
+                            <div style="width: 95%; margin: auto;" class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Change your password </h6>
+                                </div>
+                                <div class="card-body">  
+                                    
+                                    <p style="text-align: center;" >You can change your password using the following form:</p>
 
-                        <div class="tab-pane fade" id="navtabs-password" role="tabpanel" aria-labelledby="navtabs-password-tab">
-                            <div class="ms_profile_box">
-
-                                <div class="ms_pro_form">
-
-                                    <form style="grid-area: form;" action="{% url 'change_password' %}" method="post" id="pass_form" enctype="multipart/form-data">
-
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                        <div style="text-align: center;" {% if message.tags == 'warning' %} class="alert alert-danger alert-dismissible fade show" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %} role="alert">
+                                            {{ message|safe }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                  
+                                    <form style="grid-area: form; width: 60%; margin: auto;" action="{% url 'change_password' %}" method="post">
                                         {% csrf_token %}
+                                        {{ pform|crispy }}
 
-                                        {# {{ pform|crispy }} #}
+                                        <div class="padding" style="height: 12px;"></div>
 
-                                        <div class="form-group">
-                                            <label for="old_password">Your Old Password *</label>
-                                            <input type="password" id="old_password" name="old_password" class="form-control" required>
-                                        </div>
-
-                                        <br>
-                                        <br/>
-
-                                        <div class="form-group">
-                                            <label for="new_password1" onmouseover="showTool()" onmouseout="hideTool()">
-                                                New Password *
-                                            </label>
-                                            <input type="password" id="new_password1" name="new_password1" onmouseover="showTool()" onmouseout="hideTool()" class="form-control" required>
-
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="new_password2" onmouseover="showTool()" onmouseout="hideTool()">
-                                                New Password Confirmation *
-                                            </label>
-                                            <input type="password" id="new_password2" name="new_password2" onmouseover="showTool()" onmouseout="hideTool()" class="form-control" required>
-                                        </div>
-
-
-                                        <div id="tool_div" style="display: none;">
-                                            <ul>
-                                                <li>Your password can't be too similar to your other personal information.</li>
-                                                <li>Your password must contain at least 8 characters.</li>
-                                                <li>Your password can't be a commonly used password.</li>
-                                                <li>Your password can't be entirely numeric.</li>
-                                            </ul>
-                                        </div>
-
-
-                                        <div class="pro-form-btn text-center marger_top15">
-                                            <a href="{% url 'profile' %}" class="ms_btn">cancel</a>
-                                            <a onclick="subPassForm()" style="color: white; cursor: pointer;" class="ms_btn">save</a>
-                                        </div>
-
+                                        <button type='submit' class="float-right btn btn-primary ">Save changes</button>
                                     </form>
                                 </div>
                             </div>
-                        </div>
 
+                            <p class="mb-0">
+                                
+                            </p>
+                        </div>
+                        
                     </div>
 
-                </div>
-                <!----Main div close---->
-            </div>
-
-
-            <!----Footer Start---->
-            <div class="ms_footer_wrapper">
-                <div class="ms_footer_logo">
-                    <a href="#"><img src="{% static 'images/open_logo.png' %}" alt=""></a>
-                </div>
-                <div class="ms_footer_inner">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6">
-                            <div class="footer_box">
-                                <h1 class="footer_title">miraculous music station</h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="footer_box footer_app">
-                                <h1 class="footer_title">Download our App</h1>
-                                <p>Go Mobile with our app.<br> Listen to your favourite songs at just one click. Download Now !</p>
-                                <a href="#" class="foo_app_btn"><img src="{% static 'images/google_play.jpg' %}" alt="" class="img-fluid"></a>
-                                <a href="#" class="foo_app_btn"><img src="{% static 'images/app_store.jpg' %}" alt="" class="img-fluid"></a>
-                                <a href="#" class="foo_app_btn"><img src="{% static 'images/windows.jpg' %}" alt="" class="img-fluid"></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="footer_box footer_subscribe">
-                                <h1 class="footer_title">subscribe</h1>
-                                <p>Subscribe to our newsletter and get latest updates and offers.</p>
-                                <form>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Enter Your Name">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Enter Your Email">
-                                    </div>
-                                    <div class="form-group">
-                                        <a href="#" class="ms_btn">sign me up</a>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="footer_box footer_contacts">
-                                <h1 class="footer_title">contact us</h1>
-                                <ul class="foo_con_info">
-                                    <li>
-                                        <div class="foo_con_icon">
-                                            <img src="{% static 'images/svg/phone.svg' %}" alt="">
-                                        </div>
-                                        <div class="foo_con_data">
-                                            <span class="con-title">Call us :</span>
-                                            <span>(+1) 202-555-0176, (+1) 2025-5501</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="foo_con_icon">
-                                            <img src="{% static 'images/svg/message.svg' %}" alt="">
-                                        </div>
-                                        <div class="foo_con_data">
-                                            <span class="con-title">email us :</span>
-                                            <span><a href="#">demo@mail.com </a>, <a href="#">dummy@mail.com</a></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="foo_con_icon">
-                                            <img src="{% static 'images/svg/add.svg' %}" alt="">
-                                        </div>
-                                        <div class="foo_con_data">
-                                            <span class="con-title">walk in :</span>
-                                            <span>598 Old House Drive, London</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="foo_sharing">
-                                    <div class="share_title">follow us :</div>
-                                    <ul>
-                                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!----Copyright---->
-                <div class="col-lg-12">
-                    <div class="ms_copyright">
-                        <div class="footer_border"></div>
-                        <p><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></p>
-                    </div>
                 </div>
             </div>
+        </div> <!-- end col -->
+    </div> <!-- end row -->
 
-
-            <!----Audio Player Section---->
-            <div class="ms_player_wrapper">
-                <div class="ms_player_close">
-                    <i class="fa fa-angle-up" aria-hidden="true"></i>
-                </div>
-                <div class="player_mid">
-                    <div class="audio-player">
-                        <div id="jquery_jplayer_1" class="jp-jplayer"></div>
-                        <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
-                            <div class="player_left">
-                                <div class="ms_play_song">
-                                    <div class="play_song_name">
-                                        <a href="javascript:void(0);" id="playlist-text">
-                                            <div class="jp-now-playing flex-item">
-                                                <div class="jp-track-name"></div>
-                                                <div class="jp-artist-name"></div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="play_song_options">
-                                    <ul>
-                                        <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_download"></i></span>download now</a></li>
-                                        <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_fav"></i></span>Add To Favourites</a></li>
-                                        <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_playlist"></i></span>Add To Playlist</a></li>
-                                        <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_share"></i></span>Share</a></li>
-                                    </ul>
-                                </div>
-                                <span class="play-left-arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                            </div>
-                            <!----Right Queue---->
-                            <div class="jp_queue_wrapper">
-                                <span class="que_text" id="myPlaylistQueue"><i class="fa fa-angle-up" aria-hidden="true"></i> queue</span>
-                                <div id="playlist-wrap" class="jp-playlist">
-                                    <div class="jp_queue_cls"><i class="fa fa-times" aria-hidden="true"></i></div>
-                                    <h2>queue</h2>
-                                    <div class="jp_queue_list_inner">
-                                        <ul>
-                                            <li>&nbsp;</li>
-                                        </ul>
-                                    </div>
-                                    <div class="jp_queue_btn">
-                                        <a href="javascript:;" class="ms_clear" data-toggle="modal" data-target="#clear_modal">clear</a>
-                                        <a href="clear_modal.html" class="ms_save" data-toggle="modal" data-target="#save_modal">save</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jp-type-playlist">
-                                <div class="jp-gui jp-interface flex-wrap">
-                                    <div class="jp-controls flex-item">
-                                        <button class="jp-previous" tabindex="0">
-                        <i class="ms_play_control"></i>
-                    </button>
-                                        <button class="jp-play" tabindex="0">
-                        <i class="ms_play_control"></i>
-                    </button>
-                                        <button class="jp-next" tabindex="0">
-                        <i class="ms_play_control"></i>
-                    </button>
-                                    </div>
-                                    <div class="jp-progress-container flex-item">
-                                        <div class="jp-time-holder">
-                                            <span class="jp-current-time" role="timer" aria-label="time">&nbsp;</span>
-                                            <span class="jp-duration" role="timer" aria-label="duration">&nbsp;</span>
-                                        </div>
-                                        <div class="jp-progress">
-                                            <div class="jp-seek-bar">
-                                                <div class="jp-play-bar">
-                                                    <div class="bullet">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="jp-volume-controls flex-item">
-                                        <div class="widget knob-container">
-                                            <div class="knob-wrapper-outer">
-                                                <div class="knob-wrapper">
-                                                    <div class="knob-mask">
-                                                        <div class="knob d3"><span></span></div>
-                                                        <div class="handle"></div>
-                                                        <div class="round">
-                                                            <img src="{% static 'images/svg/volume.svg' %}" alt="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- <input></input> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="jp-toggles flex-item">
-                                        <button class="jp-shuffle" tabindex="0" title="Shuffle">
-                                        <i class="ms_play_control"></i></button>
-                                        <button class="jp-repeat" tabindex="0" title="Repeat"><i class="ms_play_control"></i></button>
-                                    </div>
-                                    <div class="jp_quality_optn custom_select">
-                                        <select>
-                            <option>quality</option>
-                            <option value="1">HD</option>
-                            <option value="2">High</option>
-                            <option value="3">medium</option>
-                            <option value="4">low</option>
-                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--main div-->
-            </div>
-        </div>
-
-        <!--Main js file Style-->
-        <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/plugins/swiper/js/swiper.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/plugins/player/jplayer.playlist.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/plugins/player/jquery.jplayer.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/plugins/player/audio-player.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/plugins/player/volume.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/plugins/nice_select/jquery.nice-select.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/plugins/scroll/jquery.mCustomScrollbar.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
-
-        <script type="text/javascript">
-            $(document).ready(function(){
-
-                var user_birthday = "{{ user.date_of_birth|safe }}";
-                console.log("*************** trying to print user birthday **************");
-                console.log(user_birthday);
-                console.log("\n");
-
-                if (user_birthday !== '' && user_birthday !== undefined)
-                {
-                    document.getElementById("date_of_birth").defaultValue = user_birthday;
-                }
-
-                document.getElementById('photo').onchange = function (evt) {
-                    var tgt = evt.target || window.event.srcElement,
-                        files = tgt.files;
-
-                    // FileReader support
-                    if (FileReader && files && files.length) {
-                        var fr = new FileReader();
-                        fr.onload = function () {
-                            document.getElementById('output_img').src = fr.result;
-                        }
-                        fr.readAsDataURL(files[0]);
-                    }
-                    // Not supported
-                    else {
-                        // fallback -- perhaps submit the input to an iframe and temporarily store
-                        // them on the server until the user's session ends.
-                    }
-                }
-
-            });
-
-            function subForm()
-            {
-                // var f_name = document.getElementById("first_name").val();
-                var f_name = $("#first_name").val();
-                // var l_name = document.getElementById("last_name").val();
-                var l_name = $("#last_name").val();
-                // var u_name = document.getElementById("username").val();
-                var u_name = $("#username").val();
-                // var mail = document.getElementById("email").val();
-                var mail = $("#email").val();
-
-                console.log("*********** form data **********")
-                console.log(" f_name : ", f_name);
-                console.log(" l_name : ", l_name);
-                console.log(" u_name : ", u_name);
-                console.log(" mail : ", mail);
-
-                if ((f_name !== '' && f_name !== undefined) && (l_name  !== '' && l_name !== undefined) && (u_name  !== '' && u_name !== undefined) && (mail  !== '' && mail !== undefined))
-                {
-                    document.getElementById("edit_form").submit();
-                }
-                else
-                {
-                    swal(" REQUIRED FIELDS CANNOT BE EMPTY");
-                }
-            }
-
-            function subPassForm()
-            {
-                var old_pass = $("#old_password").val();
-
-                var new_pass1 = $("#new_password1").val();
-
-                var new_pass2 = $("#new_password2").val();
-
-                console.log("*********** form data **********")
-                console.log(" nope : ");
-
-                if ((old_pass !== '' && old_pass !== undefined) && (new_pass1  !== '' && new_pass1 !== undefined) && (new_pass2  !== '' && new_pass2 !== undefined))
-                {
-                    document.getElementById("pass_form").submit();
-                }
-                else
-                {
-                    swal(" REQUIRED FIELDS CANNOT BE EMPTY");
-                }
-            }
-
-            function showTool ()
-            {
-                var x = document.getElementById("tool_div");
-
-                x.style.display = "block";
-
-            }
-
-            function hideTool ()
-            {
-                var x = document.getElementById("tool_div");
-
-                x.style.display = "none";
-
-            }
-
-        </script>
-
-    </body>
-
-</html>
+{% endblock %}

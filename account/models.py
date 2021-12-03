@@ -9,7 +9,7 @@ from django.contrib.auth.models import Group
 class User(AbstractUser):
     
     ACCOUNT_TYPE_CHOICES = ( 
-        ('0', 'boss'), 
+        ('0', 'manager'),
         ('1', 'recruiter'),
         ('2', 'developer')
     )

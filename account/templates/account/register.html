@@ -1,165 +1,128 @@
+
 {% extends "account/base.html" %}
 
 {% load static %}
-<!-- Loading Path to static files -->
-{% load staticfiles %}
 
-{% load crispy_forms_tags %}
+{% block title %}Register | Incident Analytics App{% endblock %}
 
-{% block title %} REGISTER {% endblock %}
+{% block head_css %}
+{% endblock %}
 
 
 {% block content %}
+                           
+    <div class="card-body p-4"> 
 
-    <!----Register Modal Start---->
-    <div class="ms_register_popup">
+        <div class="text-center">
+            <a href="#" class="mb-5 d-block auth-logo">
+                <img src="{% static 'images/logo.svg' %}" alt="Total logo" height="50" class="logo logo-dark">
+                <img src="{% static 'images/logo.svg' %}" alt="Total logo" height="50" class="logo logo-light">
+            </a>
+        </div>
 
-        <div class="centered-modal" role="dialog">
-            <div class="register_dialog">
+        <div class="text-center mt-2">
+            <h5 style="color: #164194;">Welcome !</h5>
+            <p class="text-muted">Sign up to Total - Incident Analytics App.</p>
+        </div>
 
+        {% if messages %}
+            {% for message in messages %}
+            <div style="text-align: center;" {% if message.tags == 'warning' %} class="alert alert-danger alert-dismissible fade show" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %} role="alert">
+                {{ message|safe }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        {% endif %}
 
-                {% if messages %}
-                    {% for message in messages %}
-                    <div style="text-align: center;" {% if message.tags == 'warning' %} class="alert alert-danger alert-dismissible fade show" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %} role="alert">
-                        {{ message|safe }}
-                        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    {% endfor %}
-                    <br>
-                {% endif %}
+        <div class="p-2 mt-4">
+            <form method="post" class="needs-validation" novalidate>
 
+                {% csrf_token %}
 
-                <!-- Modal content-->
-                <div class="modal-content">
+                {% load crispy_forms_tags %}
 
-                    <form method="post" class="needs-validation" novalidate>
-
-                        {% csrf_token %}
-
-                        <div class="modal-body">
-                            <div class="ms_register_img">
-                                <img src="{% static 'images/register_img.png' %}" alt="" class="img-fluid" />
-                            </div>
-
-                            <div class="ms_register_form">
-                                <h2>Register / Sign Up</h2>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group mb-3">
-                                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter Firstname" required>
-                                            <div class="invalid-feedback">
-                                                This field is required.
-                                            </div>
-
-                                            <span class="form_icon">
-                                                <i class="fa_icon form-user" aria-hidden="true"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group mb-3">
-                                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Lastname" required>
-                                            <div class="invalid-feedback">
-                                                This field is required.
-                                            </div>
-
-                                            <span class="form_icon">
-                                                <i class="fa_icon form-user" aria-hidden="true"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <br>
-
-                                <div class="form-group">
-                                    <input type="text" id="username" name="username" placeholder="Enter Username" class="form-control" required>
-                                    <div class="invalid-feedback">
-                                        This field is required.
-                                    </div>
-
-                                    <span class="form_icon">
-                                        <i class="fa_icon form-user" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="email" id="email" name="email" placeholder="Enter Email" class="form-control" required>
-
-                                    <div id="error"></div>
-
-                                    <div class="invalid-feedback">
-                                        This field is required.
-                                    </div>
-
-                                    <span class="form_icon">
-                                        <i class="fa_icon form-envelope" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="password" id="password" name="password" placeholder="Enter Password" class="form-control" required>
-                                    <div class="invalid-feedback">
-                                        This field is required.
-                                    </div>
-
-                                    <span class="form_icon">
-                                        <i class="fa_icon form-lock" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" id="password2" name="password2" placeholder="Confirm Password" class="form-control" required>
-                                    <div class="invalid-feedback">
-                                        Please make sure your passwords match.
-                                    </div>
-
-                                    <span class="form_icon">
-                                        <i class=" fa_icon form-lock" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-
-
-                                <div class="remember_checkbox">
-                                    <label>I am an Artist
-                                        <input type="checkbox" id="artist" name="artist" value="1">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-
-                                <input type="submit" class="ms_btn" style="cursor: pointer" value=" register "/>
-                                <!--
-                                <button type="submit" style="cursor: pointer" class="ms_btn reg_btn"> register </button>
-                                -->
-
-                                <!--
-                                <a href="#" class="ms_btn">register now</a>
-                                -->
-
-                                <p>Already Have An Account? <a href="{% url 'login' %}" class="ms_modal hideCurrentModel">login here</a></p>
+                <div class="row">                                                            
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="first_name">First Name *</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter first name" required>
+                            <div class="invalid-feedback">
+                                This field is required.
                             </div>
                         </div>
-
-                    </form>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="last_name">Last Name *</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter last name" required>
+                            <div class="invalid-feedback">
+                                This field is required.
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-            </div>
+                <div class="mb-3">
+                    <label class="form-label" for="email">Email *</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required> 
+                    
+                    <div id="error"></div> 
+                    
+                    <div class="invalid-feedback">
+                        This field is required.
+                    </div>       
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="username">Username *</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+                    <div class="invalid-feedback">
+                        This field is required.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="password">Password *</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>  
+                    <div class="invalid-feedback">
+                        This field is required.
+                    </div>      
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="password2">Confirm Password *</label>
+                    <input type="password" class="form-control" id="password2" name="password2" placeholder="Re-enter password" required>  
+                    <div class="invalid-feedback">
+                        Please make sure your passwords match.
+                    </div>      
+                </div>
+            
+                
+                <div class="mt-3 text-end">
+                    <button class="btn btn-primary w-sm waves-effect waves-light" style="background-color: #164194;" type="submit">Register</button>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <p class="text-muted mb-0">Already have an account ? <a href="{% url 'login' %}" class="fw-medium" style="color: #e4032e;"> Login </a></p>
+                </div>
+            </form>
         </div>
 
     </div>
+
 
     {% block javascript %}
         <script type="text/javascript">
 
             var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
             var user_email = document.getElementById("email");
-            // var user_email = $("#email").val();
+            // var user_email = $("#email").val();      
 
-            user_email.onblur = function()
+            user_email.onblur = function() 
             {
-                if ( !(user_email.value.match(mailformat)) )
+                if ( !(user_email.value.match(mailformat)) ) 
                 {
                     user_email.classList.add('invalid');
                     error.innerHTML = 'Please enter a correct email \n \n e.g. john-doe@gmail.com'
