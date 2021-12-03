@@ -150,10 +150,10 @@ DEFAULT_TO_EMAIL = os.getenv('DEFAULT_TO_EMAIL')
 
 
 # LOGIN
-# LOGIN_REDIRECT_URL = 'index'
+# LOGIN_REDIRECT_URL = 'dashboard'
 # LOGIN_URL = 'login'
 # LOGOUT_URL = 'logout'
-# LOGOUT_REDIRECT_URL = 'index'
+# LOGOUT_REDIRECT_URL = 'dashboard'
 
 """
 AUTHENTICATION_BACKENDS = [

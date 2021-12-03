@@ -1,0 +1,53 @@
+{% extends 'auth_base.html' %}
+
+{% block content %}
+  {% load crispy_forms_tags %}
+  <div class="card-body p-0">
+    <!-- Nested Row within Card Body -->
+    <div class="row">
+      <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+      <div class="col-lg-6">
+        <div class="p-5">
+          <div class="text-center">
+            <h1 class="h4 text-gray-900 mb-4">Create an account!</h1> 
+          </div>
+          <p>Please, sign up using the following form:</p>
+          <form action="." method="post" class="user" id="id_user_form" data-filter-list="{% url 'filter_user_list' %}">
+            <!--<div class="form-group row">
+              <div class="col-sm-6 mb-3 mb-sm-0">
+                <input type="text" name="username" class="form-control form-control-user" id="username" placeholder="Username">
+              </div>
+              <div class="col-sm-6">
+                <input type="text"  name="first_name" class="form-control form-control-user" id="first_name" placeholder="First Name">
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" class="form-control form-control-user" id="email" placeholder="Email Address">
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-6 mb-3 mb-sm-0">
+                <input type="password" name="password" class="form-control form-control-user" id="password" placeholder="Password">
+              </div>
+              <div class="col-sm-6">
+                <input type="password" name="password2" class="form-control form-control-user" id="password2" placeholder="Repeat Password">
+              </div>
+            </div>
+          -->
+            {{user_form|crispy}}
+
+            {% csrf_token %}
+            <input type="submit" value="Register Account" class="btn btn-primary btn-user btn-block"/>
+          </form>
+          <hr>
+          <div class="text-center">
+            <a class="small" href="{% url 'password_reset' %}">Forgot Password?</a>
+          </div>
+          <div class="text-center">
+            <a class="small" href="{% url 'login' %}">Already have an account? Login!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %} 
+
