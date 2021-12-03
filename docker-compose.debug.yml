@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  hrtech:
+    image: hrtech
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 manage.py runserver 0.0.0.0:1025 --nothreading --noreload"]
+    ports:
+      - 1025:1025
+      - 5678:5678
