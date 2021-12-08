@@ -132,9 +132,12 @@ def register(request):
                                 new_user.save()
 
                                 # we change the account type if they checked artist checkbox
-                                if 'artist' in request.POST:
-                                    if int(request.POST.get('artist')) == 1:
+                                if 'recruiter' in request.POST:
+                                    if int(request.POST.get('recruiter')) == 1:
                                         new_user.account_type = '1'
+                                if 'developer' in request.POST:
+                                    if int(request.POST.get('developer')) == 2:
+                                        new_user.account_type = '2'
 
                                 # Save the User object
                                 new_user.save()
@@ -161,7 +164,6 @@ def register(request):
                                                                     'user': new_user,
                                                                     'domain': current_site.domain,
                                                                     'uid': urlsafe_base64_encode(force_bytes(new_user.pk)),
-                                                                    # 'uid': urlsafe_base64_encode(force_bytes(new_user.pk)).decode(),
                                                                     'token': account_activation_token.make_token(new_user),
                                                                 })
                                 plain_message = strip_tags(html_message)
@@ -237,10 +239,10 @@ def activate(request, uidb64, token, backend='django.contrib.auth.backends.Model
                   f' Name: {user.first_name}  {user.last_name}' \
                   f'\n' \
                   f'\n' \
-                  f' Type: {user.account_type} ' \
+                  f' Type: {user.get_account_type_display} ' \
                   f'\n' \
                   f'\n' \
-                  f'\"'
+                  f'\n'
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [settings.DEFAULT_TO_EMAIL, ]
         send_mail(subject, message, email_from, recipient_list, fail_silently=False)

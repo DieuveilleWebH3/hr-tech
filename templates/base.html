@@ -3,40 +3,43 @@
 {% load static %}
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <!--
-    <link rel="icon" type="image/png" href="{% static 'img/technip_icon.png' %}" />
-    -->
-    <link rel="icon" type="image/png" href="{% static 'img/technip_energies_icon.png' %}"/>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <title>{% block title %}Technip{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{% static 'assets/img/technip_energies_icon.png' %}"/>
 
-    <!-- Custom fonts for this template-->
-    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        <title>{% block title %}   |   HR TECH {% endblock %}</title>
 
-    <!-- Custom styles for this template-->
-    <link href="{% static 'css/sb-admin-2.css' %}" rel="stylesheet">
-    <link href="{% static 'css/image-picker.css' %}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <style>
-      div#search-dropdown-menu a.dropdown-item.active{
-        color: rgb(136, 130, 130);
-      }
+        <!-- Custom fonts for this template-->
+        <link href="{% static 'assets/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-    </style>
-    {% block head_css %}
-    {% endblock %}
+        <!-- Custom styles for this template-->
+        <link href="{% static 'assets/css/sb-admin-2.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/css/image-picker.css' %}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 
-    {% block head_javascript %}
-    {% endblock %}
-  </head>
+        <style>
+          div#search-dropdown-menu a.dropdown-item.active{
+            color: rgb(136, 130, 130);
+          }
+
+        </style>
+
+
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+        {% block head_css %}
+        {% endblock %}
+
+        {% block head_javascript %}
+        {% endblock %}
+    </head>
 
   <body id="page-top">
 
@@ -49,7 +52,7 @@
         <!-- Sidebar - Brand -->
 
         <div class="col-xs-12  u-padding-l-0 mobile-nav-controls-container">
-          <a href="{% url 'dashboard' %}"><img class="site-logo" style="width:80%;padding: 0px 10px 5px 15px" src="{% static 'img/technip_energies_logo.png' %}" alt="TechnipEnergies"></a>
+          <a href="{% url 'dashboard' %}"><img class="site-logo" style="width:80%;padding: 0px 10px 5px 15px" src="{% static 'assets/img/technip_energies_logo.png' %}" alt="TechnipEnergies"></a>
         </div>
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
@@ -70,7 +73,7 @@
         </div>
 
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'projects_list' %}">
+          <a class="nav-link" href="#">
             <i class="fas fa-fw fa-folder"></i>
             <span>Project List</span></a>
         </li>
@@ -78,7 +81,7 @@
         {% if request.user.is_authenticated %}
             {% if request.user.is_staff %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'projects_add' %}">
+                <a class="nav-link" href="#">
                   <i class="fas fa-fw fa-file"></i>
                   <span>New Project</span></a>
               </li>
@@ -95,13 +98,13 @@
         </div>
               <!-- Nav Item - Charts -->
         <li class="nav-item">
-          <a class="nav-link"  href="{% url 'statistics' %}" >
+          <a class="nav-link"  href="#" >
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Statistics</span></a>
         </li>
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'simulator' id_prj=0 %}">
+          <a class="nav-link" href="#">
             <i class="fas fa-fw fa-chart-line"></i>
             <span>Simulator</span></a>
         </li>
@@ -114,15 +117,15 @@
         </div>
 
 
-        {% if user.is_superuser or user.get_account_type_display == 'Ten' or user.get_account_type_display == 'Head_business_unit' or user.get_account_type_display == 'Head_business_domain' or user.get_account_type_display == 'Head_work_stream'%}
+        {% if user.is_superuser or user.get_account_type_display == 'manager' %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'access_management' %}" >
+          <a class="nav-link" href="#" >
             <i class="fas fa-user-shield"></i>
             <span>Access management</span>
           </a>
         </li>
         {% endif %}
-        {% if user.is_superuser or user.get_account_type_display == 'Ten' %}
+        {% if user.is_superuser or user.get_account_type_display == 'manager' %}
         <li class="nav-item">
           <a class="nav-link"  href="/admin/account/user" target="_blank" >
             <i class="fas fa-fw fa-users"></i>
@@ -132,21 +135,21 @@
         {% endif %}
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'settings' %}">
+          <a class="nav-link" href="#">
             <i class="fas fa-fw fa-cog"></i>
             <span>Feature Settings</span></a>
         </li>
          <!-- Nav Item - Tables -->
         <!--
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'pdf_explorer' collection_id=1 %}">
+          <a class="nav-link" href="#">
             <i class="fas fa-fw fa-search"></i>
             <span>PDF Manual Extraction</span></a>
         </li>
         -->
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'help' %}">
+          <a class="nav-link" href="#">
             <i class="fas fa-question"></i>
             <span>Help</span></a>
         </li>
@@ -175,7 +178,7 @@
               <i class="fa fa-bars"></i>
             </button>
             <!-- Topbar Search -->
-            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="GET" action="{% url 'content_search' %}">
+            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="GET" action="#">
               <div class="input-group">
                 <div class="input-group-append">
                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -199,43 +202,36 @@
               </div>
             </form>
 
-              <!-- Nav Item - User Information -->
-              <li class="nav-item dropdown no-arrow">
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span class="mr-2-my-gradient">{{ user.username}}</span>
-                  <img src="{% static 'img/technip_energies_60.png' %} " style="width:15%">
+                    <span class="mr-2-my-gradient">{{ user.username}}</span>
+                    <img {% if request.user.photo %} src="{{request.user.photo.url}}" class="rounded-circle avatar-sm" style="width:15%" {% else %} src="{% static 'assets/img/technip_energies_60.png' %}" style="width:45%" {% endif %}>
                 </a>
+
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                  {% if user.is_staff %}
-                    <a class="dropdown-item" target="_blank" href="{% url 'admin:index' %}">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                      Administration
+                    {% if user.is_staff %}
+                        <a class="dropdown-item" target="_blank" href="{% url 'admin:index' %}">
+                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                              Administration
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+                    {% endif %}
+                    <a class="dropdown-item" href="{% url 'profile' %}">
+                        <i class="fas fa-user-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Manage Account
                     </a>
+
                     <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{% url 'manage_account' %}">
-                    <i class="fas fa-user-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Manage Account
-                  </a>
-                    <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Logout
-                  </a>
+
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Logout
+                    </a>
                 </div>
-                  {% else %}
-                  <a class="dropdown-item" href="{% url 'manage_account' %}">
-                    <i class="fas fa-user-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Manage Account
-                  </a>
 
-                  <div class="dropdown-divider"></div>
-
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Logout
-                  </a>
-                  {% endif %}
               </li>
             </ul>
           </nav>
@@ -254,7 +250,7 @@
         <footer class="sticky-footer bg-white">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright &copy; TechnipEnergies 2021</span>
+              <span> © <script>document.write(new Date().getFullYear())</script> HR TECH. </span>
             </div>
           </div>
         </footer>
@@ -286,35 +282,20 @@
         </div>
       </div>
     </div>
-    <!-- Bootstrap core JavaScript-->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-    <script type="text/javascript">
-      $(function(){
-        var search_id = sessionStorage.getItem("project_search") || '0'
-        var search_element = $("#search-dropdown-menu a[data-id="+search_id+"]")
-        $("#search-dropdown-menu a.active").removeClass('active');
-        search_element.addClass('active')
-        $('#search_input_hidden').val(search_id);
-        $('#search_concept').html(search_element.html());
-        $("#search-dropdown-menu a").click(function(){
-          $("#search-dropdown-menu a.active").removeClass('active');
-          var search_value= $(this).html();
-          var search_id= $(this).data('id');
-          $('#search_concept').html(search_value);
-          $('#search_input_hidden').val(search_id);
-          $(this).addClass('active');
-          sessionStorage.setItem("project_search", search_id)
-        });
 
-      });
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'assets/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'assets/js/sb-admin-2.min.js' %}"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript">
 
     </script>
+
     {% block javascript %}
     {% endblock %}
   </body>

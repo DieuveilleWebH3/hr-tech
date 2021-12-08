@@ -1,0 +1,46 @@
+
+h1 {
+            color: green;
+        }
+  
+        .multipleSelection {
+            width: 300px;
+            background-color: #4e73df;
+        }
+  
+        .selectBox {
+            position: relative;
+        }
+  
+        .selectBox select {
+            width: 100%;
+            font-weight: bold;
+        }
+  
+        .overSelect {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+  
+        #checkBoxes {
+            display: none;
+            border: 1px #4e73df solid;
+            height: 180px;
+            overflow-y: scroll;
+        }
+  
+        #checkBoxes label {
+            display: block;
+            font-size: large;
+            white-space: nowrap;
+            padding: 8px;
+        }
+  
+        #checkBoxes label:hover {
+            // background-color: #4e73df;
+            background-color: #60A3D9;
+        }
+        

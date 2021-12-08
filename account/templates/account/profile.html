@@ -6,179 +6,12 @@
 
 {% block title %}Profile{% endblock %}
 
-{% block content %}
-
-    <!-- start page title -->
-    <div class="row">
-        <div class="col-12">
-            <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h4 class="mb-0">Profile </h4>
-            </div>
-        </div>
-    </div>
-    <!-- end page title -->
-
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card">
-                <div class="card-body">
-
-
-                    <h4 class="card-title">Edit your personal Info</h4>
-                    <p class="card-title-desc"> </p>
-
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#navtabs-home" role="tab">
-                                <span class="d-block d-sm-none"><i class="fas fa-user"></i></span>
-                                <span class="d-none d-sm-block">Edit Profile</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#navtabs-profile" role="tab">
-                                <span class="d-block d-sm-none"><i class="fas fa-user-lock"></i></span>
-                                <span class="d-none d-sm-block">Edit Password</span>
-                            </a>
-                        </li>
-                    </ul>
-
-                    <!-- Tab panes -->
-                    <div class="tab-content p-3 text-muted">
-                        <div class="tab-pane active" id="navtabs-home" role="tabpanel">
-
-                            <div style="width: 95%; margin: auto;" class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Edit your account </h6>
-                                </div>
-                                <div class="card-body">   
-                                    <h1 style="text-align: center;">Edit your account</h1>
-                                    <p style="text-align: center;" >You can edit your account using the following form:</p>
-
-                                    {% if messages %}
-                                        {% for message in messages %}
-                                        <div style="text-align: center;" {% if message.tags == 'warning' %} class="alert alert-danger alert-dismissible fade show" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %} role="alert">
-                                            {{ message|safe }}
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        {% endfor %}
-                                    {% endif %}
-
-                                    <form style="grid-area: form; width: 60%; margin: auto;" action="{% url 'edit' %}" method="post" enctype="multipart/form-data">
-
-                                        {% csrf_token %}
-
-                                        {{ user_form|crispy }}
-
-                                        <div class="padding" style="height: 8px;"></div>
-                                        
-                                        <div id="div_id_date_of_birth" class="form-group">
-                                            <label for="id_date_of_birth" class="requiredField">
-                                                Date of birth
-                                            </label> 
-                                            <div class=""> 
-                                                <input type="date" name="date_of_birth" class="dateinput form-control" id="date_of_birth" placeholder="{{user.date_of_birth}}" value="{{user.date_of_birth}}"> 
-                                            </div>
-                                        </div>
-
-                                        <div class="padding" style="height: 8px;"></div>
-
-                                        <div id="div_id_photo" class="form-group">
-                                            <label for="id_photo" class="">
-                                                Photo
-                                            </label> 
-                                            <div class=""> 
-                                                <input type="file" name="photo" class="form-control-file" id="id_photo" accept="image/*"> 
-                                                <!-- 
-                                                    <input type="file" name="photo" accept="image/*" class="form-control-file" class="clearablefileinput form-control-file" id="id_photo">  
-                                                -->  
-                                            </div>
-                                        </div> 
-
-                                        <div class="padding" style="height: 12px;"></div>
-
-                                        <button  type='submit' class="float-right btn btn-primary btn-user">Save changes</button>
-                                    </form>
-                                </div>
-                            </div>
-
-                            <p class="mb-0">
-                                
-                            </p>
-                        </div>
-                        
-                        <div class="tab-pane" id="navtabs-profile" role="tabpanel">
-
-                            <div style="width: 95%; margin: auto;" class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Change your password </h6>
-                                </div>
-                                <div class="card-body">  
-                                    
-                                    <p style="text-align: center;" >You can change your password using the following form:</p>
-
-                                    {% if messages %}
-                                        {% for message in messages %}
-                                        <div style="text-align: center;" {% if message.tags == 'warning' %} class="alert alert-danger alert-dismissible fade show" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %} role="alert">
-                                            {{ message|safe }}
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        {% endfor %}
-                                    {% endif %}
-                                  
-                                    <form style="grid-area: form; width: 60%; margin: auto;" action="{% url 'change_password' %}" method="post">
-                                        {% csrf_token %}
-                                        {{ pform|crispy }}
-
-                                        <div class="padding" style="height: 12px;"></div>
-
-                                        <button type='submit' class="float-right btn btn-primary ">Save changes</button>
-                                    </form>
-                                </div>
-                            </div>
-
-                            <p class="mb-0">
-                                
-                            </p>
-                        </div>
-                        
-                    </div>
-
-                </div>
-            </div>
-        </div> <!-- end col -->
-    </div> <!-- end row -->
-
-{% endblock %}
-
-
-
-
-
-
-
-
-
-
-{% extends "base.html" %}
-
-{% load static %}
-
-{% load crispy_forms_tags %}
-
-{% block title %} Manage Account {% endblock %}
-
 {% block head_css %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
-
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/custom.css' %}">
 {% endblock %}
 
-
 {% block content %}
+
     <div id="nb-global-spinner" class="spinner" style="display: none;">
         <div class="blob blob-0"></div>
         <div class="blob blob-1"></div>
@@ -189,138 +22,263 @@
     </div>
     <div style="display: flex; justify-content: space-between;">
         <div>
-            <h1 class="h3 mb-0 text-gray-800"> <i class="fas fa-user"></i> Manage Account: </h1>
+            <h1 class="h3 mb-0 text-gray-800"> <i class="fas fa-user"></i> Profile : </h1>
         </div>
-
     </div>
+    
     <hr>
+    
     {% if messages %}
-      {% for message in messages %}
-        <div style="text-align: center;" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-            {{ message|safe }}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      {% endfor %}
+        {% for message in messages %}
+            <div style="text-align: center;" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message|safe }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
     {% endif %}
+    
     <nav class="nav nav-tabs" id="myTab">
-
-      <a class="nav-item nav-link active" href="#p3" data-toggle="tab">Edit your account</a>
-      <a class="nav-item nav-link" href="#p4" data-toggle="tab">Change your password</a>
-
+        <a class="nav-item nav-link active" href="#p3" data-toggle="tab">Edit Profile</a>
+        <a class="nav-item nav-link" href="#p4" data-toggle="tab">Change Password</a>
     </nav>
+    
     <br>
+    
     <div class="tab-content">
+        
+        <div class="tab-pane active" id="p3">
+            
+            <div style="width: 95%; margin: auto;" class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Edit Profile </h6>
+                </div>
+                
+                <div class="card-body">
+                    <h1 style="text-align: center;">Edit your account</h1>
+                    <p style="text-align: center;" >You can edit your account using the following form:</p>
 
-      <div class="tab-pane active" id="p3">
-        <div style="width: 95%; margin: auto;" class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Edit your account </h6>
-            </div>
-            <div class="card-body">
-              <h1 style="text-align: center;">Edit your account</h1>
-              <p style="text-align: center;" >You can edit your account using the following form:</p>
-              <form style="grid-area: form; width: 60%; margin: auto;" action="{% url 'edit' %}" method="post" >
-                {{ user_form|crispy }}
-                {% csrf_token %}
-                <button  type='submit' class="float-right btn btn-primary btn-user">Save changes</button>
-              </form>
+                    <div class="row" style="display: flex; justify-content: center;">
+                        <div class="col-md-12" style="display: flex; justify-content: center; width: 200px; height: 200px;">
+                            <div class="mt-4 mt-md-0" style="display: flex; justify-content: center; width: 200px; height: 200px;">
+                                {% if user.photo %}
+                                    <img src="{{user.photo.url}}" id="output_img" alt="{{user.username}} Avatar" class="rounded-circle avatar-sm" style="display: flex; justify-content: center;">
+                                {% else %}
+                                    <img src="{% static 'images/users/user-profile.png' %}" alt="Default Avatar" id="output_img" class="rounded-circle avatar-sm" style="display: flex; justify-content: center;">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    
+                    <form style="grid-area: form; width: 60%; margin: auto;" action="{% url 'edit' %}" method="post" enctype="multipart/form-data">
+                        
+                        {% csrf_token %}
+                        
+                        {# {{ user_form|crispy }} #}
+
+                        <div class="form-group">
+                            <label for="first_name">Your FirstName *</label>
+                            <input type="text" id="first_name" name="first_name" value="{{user.first_name}}" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name">Your LastName *</label>
+                            <input type="text" id="last_name" name="last_name" value="{{user.last_name}}" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Your Username *</label>
+                            <input type="text" id="username" name="username" value="{{user.username}}" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email *</label>
+                            <input type="email" id="email" name="email" value="{{user.email}}" class="form-control" readonly>
+                        </div>
+
+                        <div id="div_id_date_of_birth" class="form-group">
+                            <label for="date_of_birth"> Date of birth</label>
+
+                            <input type="date" id="date_of_birth" name="date_of_birth" class="dateinput form-control" value="{{user.date_of_birth}}">
+                        </div>
+
+                        <div id="div_id_photo" class="form-group">
+                            <label for="photo" class="">
+                                Photo
+                            </label>
+
+                            <input type="file" name="photo" class="form-control" id="photo" accept="image/*">
+                        </div>
+
+                        <div class="padding" style="height: 12px;"></div>
+                        
+                        <button  type='submit' class="float-right btn btn-primary btn-user">Save changes</button>
+
+                    </form>
+                
+                </div>
             </div>
         </div>
-      </div>
 
-      <div class="tab-pane" id="p4">
-        <div style="width: 95%; margin: auto;" class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Change your password </h6>
-            </div>
-            <div class="card-body">
+        <div class="tab-pane" id="p4">
+            <div style="width: 95%; margin: auto;" class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Change your password </h6>
+                </div>
+                
+                <div class="card-body">
+                    
+                    <p style="text-align: center;" >You can change your password using the following form:</p>
 
-              <p style="text-align: center;" >You can change your password using the following form:</p>
+                    <br>
+                    <br/>
 
-              <form style="grid-area: form; width: 60%; margin: auto;" action="{% url 'change_password' %}" method="post">
-                {% csrf_token %}
-                {{ pform|crispy }}
-                <button type='submit' class="float-right btn btn-primary ">Save changes</button>
-              </form>
+                    <form style="grid-area: form; width: 60%; margin: auto;" action="{% url 'change_password' %}" method="post">
+                        {% csrf_token %}
+                        
+                        {# {{ pform|crispy }} #}
+
+                        <div class="form-group">
+                            <label for="old_password">Your Old Password *</label>
+                            <input type="password" id="old_password" name="old_password" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="new_password1" onmouseover="showTool()" onmouseout="hideTool()">
+                                New Password *
+                            </label>
+                            <input type="password" id="new_password1" name="new_password1" onmouseover="showTool()" onmouseout="hideTool()" class="form-control" required>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="new_password2" onmouseover="showTool()" onmouseout="hideTool()">
+                                New Password Confirmation *
+                            </label>
+                            <input type="password" id="new_password2" name="new_password2" onmouseover="showTool()" onmouseout="hideTool()" class="form-control" required>
+                        </div>
+
+
+                        <div id="tool_div" style="display: none;">
+                            <ul>
+                                <li>Your password can't be too similar to your other personal information.</li>
+                                <li>Your password must contain at least 8 characters.</li>
+                                <li>Your password can't be a commonly used password.</li>
+                                <li>Your password can't be entirely numeric.</li>
+                            </ul>
+                        </div>
+                        
+                        <button type='submit' class="float-right btn btn-primary ">Save changes</button>
+                    </form>
+                    
+                </div>
             </div>
         </div>
-      </div>
-
-
+    
     </div>
-{% endblock %}
 
+    {% block javascript %}
+        <script src="{% static 'assets/js/lodash.js' %} "></script>
 
-{% block javascript %}
-    <script src="{% static 'js/lodash.js' %} "></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-          var addFormGroup = function (event) {
-            event.preventDefault();
+        <script type="text/javascript">
+            $(document).ready(function(){
 
-            var $formGroup = $(this).closest('.form-group');
-            var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
-            var $formGroupClone = $formGroup.clone();
+                var user_birthday = "{{ user.date_of_birth|safe }}";
+                console.log("*************** trying to print user birthday **************");
+                console.log(user_birthday);
+                console.log("\n");
 
-            $(this)
-                .toggleClass('btn-default btn-add btn-danger btn-remove')
-                .html('–');
+                if (user_birthday !== '' && user_birthday !== undefined)
+                {
+                    document.getElementById("date_of_birth").defaultValue = user_birthday;
+                }
 
-            $formGroupClone.find('input').val('');
-            $formGroupClone.insertAfter($formGroup);
+                document.getElementById('photo').onchange = function (evt) {
+                    var tgt = evt.target || window.event.srcElement,
+                        files = tgt.files;
 
-            var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
-            if ($multipleFormGroup.data('max') <= countFormGroup($multipleFormGroup)) {
-                $lastFormGroupLast.find('.btn-add').attr('disabled', true);
+                    // FileReader support
+                    if (FileReader && files && files.length) {
+                        var fr = new FileReader();
+                        fr.onload = function () {
+                            document.getElementById('output_img').src = fr.result;
+                        }
+                        fr.readAsDataURL(files[0]);
+                    }
+                    // Not supported
+                    else {
+                        // fallback -- perhaps submit the input to an iframe and temporarily store
+                        // them on the server until the user's session ends.
+                    }
+                }
+
+            });
+
+            function subForm()
+            {
+                // var f_name = document.getElementById("first_name").val();
+                var f_name = $("#first_name").val();
+                // var l_name = document.getElementById("last_name").val();
+                var l_name = $("#last_name").val();
+                // var u_name = document.getElementById("username").val();
+                var u_name = $("#username").val();
+                // var mail = document.getElementById("email").val();
+                var mail = $("#email").val();
+
+                console.log("*********** form data **********")
+                console.log(" f_name : ", f_name);
+                console.log(" l_name : ", l_name);
+                console.log(" u_name : ", u_name);
+                console.log(" mail : ", mail);
+
+                if ((f_name !== '' && f_name !== undefined) && (l_name  !== '' && l_name !== undefined) && (u_name  !== '' && u_name !== undefined) && (mail  !== '' && mail !== undefined))
+                {
+                    document.getElementById("edit_form").submit();
+                }
+                else
+                {
+                    swal(" REQUIRED FIELDS CANNOT BE EMPTY");
+                }
             }
-        };
 
-        $('#id_type').change(function(e){
-            var name = $(this).children("option:selected").val();
-            if (name!= 1){
-              $('#unit').hide();
-              $('#id_unit').hide();
-            }else{
-              $('#unit').show();
-              $('#id_unit').show();
-            }
-        });
+            function subPassForm()
+            {
+                var old_pass = $("#old_password").val();
 
-        var removeFormGroup = function (event) {
-            event.preventDefault();
+                var new_pass1 = $("#new_password1").val();
 
-            var $formGroup = $(this).closest('.form-group');
-            var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+                var new_pass2 = $("#new_password2").val();
 
-            var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
-            if ($multipleFormGroup.data('max') >= countFormGroup($multipleFormGroup)) {
-                $lastFormGroupLast.find('.btn-add').attr('disabled', false);
+                console.log("*********** form data **********")
+                console.log(" nope : ");
+
+                if ((old_pass !== '' && old_pass !== undefined) && (new_pass1  !== '' && new_pass1 !== undefined) && (new_pass2  !== '' && new_pass2 !== undefined))
+                {
+                    document.getElementById("pass_form").submit();
+                }
+                else
+                {
+                    swal(" REQUIRED FIELDS CANNOT BE EMPTY");
+                }
             }
 
-            $formGroup.remove();
-        };
+            function showTool ()
+            {
+                var x = document.getElementById("tool_div");
 
-        var countFormGroup = function ($form) {
-            return $form.find('.form-group').length;
-        };
+                x.style.display = "block";
 
-        $(document).on('click', '.btn-add', addFormGroup);
-        $(document).on('click', '.btn-remove', removeFormGroup);
-          $('#myTab a').click(function(e) {
-              e.preventDefault();
-              $(this).tab('show');
-          });
-          // store the currently selected tab in the hash value
-          $("#myTab a").on("shown.bs.tab", function(e) {
-            var id = $(e.target).attr("href").substr(1);
-            window.location.hash = id;
-          });
-          // on load of the page: switch to the currently selected tab
-          var hash = window.location.hash;
-          $('#myTab a[href="' + hash + '"]').tab('show');
-        });
-    </script>
+            }
+
+            function hideTool ()
+            {
+                var x = document.getElementById("tool_div");
+
+                x.style.display = "none";
+
+            }
+
+        </script>
+    {% endblock %}
+
 {% endblock %}
