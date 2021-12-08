@@ -154,3 +154,173 @@
     </div> <!-- end row -->
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+{% extends "base.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block title %} Manage Account {% endblock %}
+
+{% block head_css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+    <div id="nb-global-spinner" class="spinner" style="display: none;">
+        <div class="blob blob-0"></div>
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+        <div class="blob blob-5"></div>
+    </div>
+    <div style="display: flex; justify-content: space-between;">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800"> <i class="fas fa-user"></i> Manage Account: </h1>
+        </div>
+
+    </div>
+    <hr>
+    {% if messages %}
+      {% for message in messages %}
+        <div style="text-align: center;" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message|safe }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
+    {% endif %}
+    <nav class="nav nav-tabs" id="myTab">
+
+      <a class="nav-item nav-link active" href="#p3" data-toggle="tab">Edit your account</a>
+      <a class="nav-item nav-link" href="#p4" data-toggle="tab">Change your password</a>
+
+    </nav>
+    <br>
+    <div class="tab-content">
+
+      <div class="tab-pane active" id="p3">
+        <div style="width: 95%; margin: auto;" class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Edit your account </h6>
+            </div>
+            <div class="card-body">
+              <h1 style="text-align: center;">Edit your account</h1>
+              <p style="text-align: center;" >You can edit your account using the following form:</p>
+              <form style="grid-area: form; width: 60%; margin: auto;" action="{% url 'edit' %}" method="post" >
+                {{ user_form|crispy }}
+                {% csrf_token %}
+                <button  type='submit' class="float-right btn btn-primary btn-user">Save changes</button>
+              </form>
+            </div>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="p4">
+        <div style="width: 95%; margin: auto;" class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Change your password </h6>
+            </div>
+            <div class="card-body">
+
+              <p style="text-align: center;" >You can change your password using the following form:</p>
+
+              <form style="grid-area: form; width: 60%; margin: auto;" action="{% url 'change_password' %}" method="post">
+                {% csrf_token %}
+                {{ pform|crispy }}
+                <button type='submit' class="float-right btn btn-primary ">Save changes</button>
+              </form>
+            </div>
+        </div>
+      </div>
+
+
+    </div>
+{% endblock %}
+
+
+{% block javascript %}
+    <script src="{% static 'js/lodash.js' %} "></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+          var addFormGroup = function (event) {
+            event.preventDefault();
+
+            var $formGroup = $(this).closest('.form-group');
+            var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+            var $formGroupClone = $formGroup.clone();
+
+            $(this)
+                .toggleClass('btn-default btn-add btn-danger btn-remove')
+                .html('–');
+
+            $formGroupClone.find('input').val('');
+            $formGroupClone.insertAfter($formGroup);
+
+            var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+            if ($multipleFormGroup.data('max') <= countFormGroup($multipleFormGroup)) {
+                $lastFormGroupLast.find('.btn-add').attr('disabled', true);
+            }
+        };
+
+        $('#id_type').change(function(e){
+            var name = $(this).children("option:selected").val();
+            if (name!= 1){
+              $('#unit').hide();
+              $('#id_unit').hide();
+            }else{
+              $('#unit').show();
+              $('#id_unit').show();
+            }
+        });
+
+        var removeFormGroup = function (event) {
+            event.preventDefault();
+
+            var $formGroup = $(this).closest('.form-group');
+            var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+
+            var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+            if ($multipleFormGroup.data('max') >= countFormGroup($multipleFormGroup)) {
+                $lastFormGroupLast.find('.btn-add').attr('disabled', false);
+            }
+
+            $formGroup.remove();
+        };
+
+        var countFormGroup = function ($form) {
+            return $form.find('.form-group').length;
+        };
+
+        $(document).on('click', '.btn-add', addFormGroup);
+        $(document).on('click', '.btn-remove', removeFormGroup);
+          $('#myTab a').click(function(e) {
+              e.preventDefault();
+              $(this).tab('show');
+          });
+          // store the currently selected tab in the hash value
+          $("#myTab a").on("shown.bs.tab", function(e) {
+            var id = $(e.target).attr("href").substr(1);
+            window.location.hash = id;
+          });
+          // on load of the page: switch to the currently selected tab
+          var hash = window.location.hash;
+          $('#myTab a[href="' + hash + '"]').tab('show');
+        });
+    </script>
+{% endblock %}

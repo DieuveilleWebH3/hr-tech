@@ -13,7 +13,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
 
     # we add the URL for the activate view, to allow users to activate their account.
-    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
+    # url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
+    path('activate/<uidb64>/<token>/', views.activate, name='activate'),
 
     #  login view
     path('login/', views.user_login, name='login'),
@@ -43,7 +44,6 @@ urlpatterns = [
 
     # alternative way to include authentication views
     path('', include('django.contrib.auth.urls')),
-
 
     # 
     path('change_status_registration/', views.change_status_registration, name='change_status_registration'),

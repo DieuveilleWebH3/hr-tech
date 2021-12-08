@@ -115,10 +115,9 @@ def register(request):
                             cd = user_form.cleaned_data
 
                             if cd['password'] != cd['password2']:
-                                # raise forms.ValidationError('Passwords don\'t match.')
-                                # return cd['password2']
 
-                                messages.warning(request, "Unsuccessful registration. Please make sure your passwords match.")
+                                messages.warning(request,
+                                                 "Unsuccessful registration. Please make sure your passwords match.")
 
                                 return redirect('register')
                             else:
@@ -162,7 +161,7 @@ def register(request):
                                                                     'user': new_user,
                                                                     'domain': current_site.domain,
                                                                     'uid': urlsafe_base64_encode(force_bytes(new_user.pk)),
-                                                                    # 'uid':urlsafe_base64_encode(force_bytes(user.pk)).decode(),
+                                                                    # 'uid': urlsafe_base64_encode(force_bytes(new_user.pk)).decode(),
                                                                     'token': account_activation_token.make_token(new_user),
                                                                 })
                                 plain_message = strip_tags(html_message)
@@ -205,13 +204,10 @@ def register(request):
 
     except AllowRegistration.DoesNotExist:
         pass
-        """ 
-        allow_first = AllowRegistration
+
+        allow_first = AllowRegistration(name='user_registration', status=False)
         allow_first.save()
-        # 
-        user_form = UserRegistrationForm()
-        return render(request, 'account/register.html', {'user_form': user_form})
-        """
+
         return render(request, 'account/no_register.html')
 
 

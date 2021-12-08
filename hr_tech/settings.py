@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
+    'dashboard',
     'crispy_forms',
 ]
 
@@ -152,9 +153,9 @@ DEFAULT_TO_EMAIL = os.getenv('DEFAULT_TO_EMAIL')
 
 
 # LOGIN
-# LOGIN_REDIRECT_URL = 'dashboard'
-# LOGIN_URL = 'login'
-# LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
 # LOGOUT_REDIRECT_URL = 'dashboard'
 
 
