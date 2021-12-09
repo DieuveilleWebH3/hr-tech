@@ -205,8 +205,14 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2-my-gradient">{{ user.username}}</span>
-                    <img {% if request.user.photo %} src="{{request.user.photo.url}}" class="rounded-circle avatar-sm" style="width:15%" {% else %} src="{% static 'assets/img/technip_energies_60.png' %}" style="width:45%" {% endif %}>
+                    <span class="mr-2-my-gradient">{{ user.username }}</span>
+                    <img
+                            {% if request.user.photo %}
+                                src="{{request.user.photo.url}}" alt="{{user.username}} Avatar" class="rounded-circle avatar-sm" style="width:15%"
+                            {% else %}
+                                src="{% static 'assets/img/technip_energies_60.png' %}" style="width:45%" alt="Default Avatar"
+                            {% endif %}
+                    >
                 </a>
 
                 <!-- Dropdown - User Information -->
