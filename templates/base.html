@@ -79,68 +79,74 @@
                         <span>Project List</span>
                     </a>
                 </li>
-                      <!-- Nav Item - Charts -->
+
+                <!-- Nav Item - Charts -->
                 {% if request.user.is_authenticated %}
                     {% if request.user.is_staff %}
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">
-                          <i class="fas fa-fw fa-file"></i>
-                          <span>New Project</span></a>
-                      </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-fw fa-file"></i>
+                                <span>New Project</span>
+                            </a>
+                        </li>
                     {% endif %}
                 {% endif %}
 
 
+                <hr class="sidebar-divider">
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Simulation
+                </div>
 
+                <!-- Nav Item - Charts -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Statistics</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - Tables -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-fw fa-chart-line"></i>
+                        <span>Simulator</span>
+                    </a>
+                </li>
 
                 <hr class="sidebar-divider">
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                  Simulation
+                    Management
                 </div>
-                      <!-- Nav Item - Charts -->
-                <li class="nav-item">
-                  <a class="nav-link"  href="#" >
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Statistics</span></a>
-                </li>
-                <!-- Nav Item - Tables -->
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-chart-line"></i>
-                    <span>Simulator</span></a>
-                </li>
-
-
-                <hr class="sidebar-divider">
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                  Management
-                </div>
-
 
                 {% if user.is_superuser or user.get_account_type_display == 'manager' %}
                 <li class="nav-item">
-                  <a class="nav-link" href="#" >
-                    <i class="fas fa-user-shield"></i>
-                    <span>Access management</span>
-                  </a>
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Access management</span>
+                    </a>
                 </li>
                 {% endif %}
+
                 {% if user.is_superuser or user.get_account_type_display == 'manager' %}
                 <li class="nav-item">
-                  <a class="nav-link"  href="/admin/account/user" target="_blank" >
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Users management</span>
-                  </a>
+                    <a class="nav-link"  href="/admin/account/user" target="_blank">
+                        <i class="fas fa-fw fa-users"></i>
+                        <span>Users management</span>
+                    </a>
                 </li>
                 {% endif %}
+
                 <!-- Nav Item - Tables -->
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Feature Settings</span></a>
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Feature Settings</span>
+                    </a>
                 </li>
+
                  <!-- Nav Item - Tables -->
                 <!--
                 <li class="nav-item">
@@ -149,6 +155,7 @@
                     <span>PDF Manual Extraction</span></a>
                 </li>
                 -->
+
                 <!-- Nav Item - Tables -->
                 <li class="nav-item">
                   <a class="nav-link" href="#">
