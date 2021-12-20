@@ -25,7 +25,7 @@
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Number of candidates</div>
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Number of profiles</div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">{{nb_users}}</div>
                 </div>
                 <div class="col-auto">
@@ -236,6 +236,7 @@
       </div>
     <!-- /.container-fluid -->
   </div>
+  </div>
 {% endblock %}
 
 {% block javascript %}
@@ -332,7 +333,8 @@
         },
       });
 
-            // Set new default font family and font color to mimic Bootstrap's default styling
+
+      // Set new default font family and font color to mimic Bootstrap's default styling
       Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
       Chart.defaults.global.defaultFontColor = '#858796';
 
