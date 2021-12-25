@@ -75,22 +75,18 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span>Project List</span>
+                        <i class="fas fa-user-plus"></i>
+                        <span>Candidates</span>
                     </a>
                 </li>
 
                 <!-- Nav Item - Charts -->
-                {% if request.user.is_authenticated %}
-                    {% if request.user.is_staff %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-fw fa-file"></i>
-                                <span>New Project</span>
-                            </a>
-                        </li>
-                    {% endif %}
-                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-fw fa-file"></i>
+                        <span>Notes</span>
+                    </a>
+                </li>
 
 
                 <hr class="sidebar-divider">

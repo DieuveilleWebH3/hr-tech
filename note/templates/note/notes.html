@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/deploy.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+{% endblock %}
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+        <div style="text-align: center;" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>Hello! </strong> {{ message|safe }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        
+            <div style="text-align: right;">
+                <a href="#"  type="submit" style="color:#ffffff" class="btn btn-success btn-icon-split" >
+                    <span class="icon text-white-50"><i class="fas fa-folder-plus"></i></span>
+                    <span class="text">Add Note</span>
+                </a>
+            </div>
+        
+    {% endif %}
+    <hr>
+    <div class='row'>
+        <div style="width: 95%; margin: auto;" class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-list"></i> My Notes </h6>
+            </div>
+            <div class="card-body">
+                {% if note_list|length > 0 %}
+                    <div class="card-body">
+                        <table
+                            class="table table-bordered"
+                            id="dataTable"
+                            width="100%"
+                            cellspacing="0"
+                            data-toggle="table"
+                            data-search="true"
+                            data-show-refresh="true"
+                            data-show-toggle="true"
+                            data-show-fullscreen="true"
+                            data-show-columns="true"
+                            data-show-columns-toggle-all="false"
+                            data-click-to-select="true"
+                            data-minimum-count-columns="2"
+                            data-show-pagination-switch="true"
+                            data-pagination="true"
+                            data-id-field="name"
+                            data-page-list="[10, 25, 50, 100, all]"
+                            data-detail-view="true"
+                            data-detail-formatter="detailService"
+                            data-show-export="true"
+                            data-export-options='{"fileName": "Notes"}'>
+                            <thead>
+                                <tr>
+                                    <th data-field="id" data-visible="false" >ID</th>
+                                    <th data-field="name" data-sortable="true" >Title</th>
+                                    <th data-field="owner" data-sortable="true" data-visible="true" >Language</th>
+                                    <th data-field="access" data-sortable="true" data-visible="true" >Description</th>
+                                    <th data-field="created_at" data-visible="false" > Created at</th>
+                                    <th data-field="action" >Open</th>
+                                    <th data-field="link"  data-visible="false" >Link</th>
+                                    <th data-field="delete" style="text-align: center;">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for note in note_list %}
+                                    <tr>
+                                        <td>{{ note.id }}</td>
+                                        <td>{{ note.title }}</td>
+                                        <td>{{ note.get_language_display }}</td>
+                                        <td>{{ note.description }}</td>
+                                        <td>{{ note.created_at  }}</td>
+                                        <td> <a href="{{ note.get_absolute_url }}"> Open</a></td>
+                                        <td>{{ note.get_absolute_url }}</td>
+
+                                        <td style="text-align: center;" >
+                                            <div class="text-center">
+                                                <a id="deleteProject" data-toggle="modal" data-slug="{{ note.slug }}" data-target="#deleteModal" class="" href='{{ note.get_delete_url }}'>
+                                                    <i style="color: #e74a3b;" class="fas fa-times fa-2x" ></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                {% else %}
+                    <div style="display: flex; height: 50vh; width: 100%; justify-content: center; align-items: center; font-size: 1.4em;">
+                        No note added
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Delete Project Modal-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Delete Note Definitely?</h5>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                Select "Delete" below if you want to delete the note definitely.
+                <i class="fas fa-exclamation-triangle"> This action cannot be undone!</i>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+              <a class="btn btn-danger btn-icon-split" href="">
+                <span class="icon text-white-50"> <i class="fas fa-trash"></i></span>
+                <span class="text">Delete</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+{% endblock %}
+
+
+{% block javascript %}
+
+    <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
+    <script type="text/javascript">
+
+        function detailService (value, row, index) {
+            return [
+                '<div>',
+                    '<table style="width=100%" class="table"> ',
+                        '<tbody>',
+                                '<th scope="created_at">Created at</th>',
+                                '<td>',
+                                    row.created_at,
+                                '</td>',
+
+                            '</tr>',
+                        '</tbody>',
+                    '</table>',
+                '</div>',
+            ].join('');
+        }
+
+
+        $(document).ready(function(){
+            $(document).on("click", "#deleteProject", function () {
+
+                var prjSlug = $(this).data('slug');
+                console.log(prjSlug);
+                var my_link = "{% url 'note_delete' slug='9999999999999'  %}"
+                var link = my_link.replace('9999999999999', prjSlug);
+                $('#deleteModal').find('.modal-footer a')[0].href = link
+            });
+
+            $('#dataTable').on('dbl-click-row.bs.table', function (e, row, $element) {
+                var url = row.link;
+                // alert(url)
+                window.location.href = url;
+            });
+
+            $('#dataTable').on('refresh.bs.table', function (params) {
+                window.location.reload();
+            });
+        });
+      </script>
+{% endblock %}

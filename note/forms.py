@@ -8,15 +8,12 @@ import os
 class NoteEditForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = ['title', 'zone', 'production', 'type', 'access', 'standard', 'client', 'description', 'photo']
+        fields = ['title', 'language', 'description']
         widgets = {
             'title': forms.TextInput(attrs={'readonly': 'readonly'}),
         }
         labels = {
-            "production": "Type of production",
-            "type": "Type of platform",
-            'title': 'Name',
-            'standard': 'Project Standard'
+            'title': 'Title'
         }
 
 
