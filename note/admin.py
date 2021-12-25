@@ -8,6 +8,7 @@ from .models import *
 # NotesAdmin
 @admin.register(Note)
 class NoteAdmin(ImportExportModelAdmin):
+    prepopulated_fields = {"slug": ("title",)}
     list_display = ('id', 'author', 'title', 'slug', 'description', 'language', 'created_at', 'updated_at')
     list_filter = ['created_at', 'author', 'language']
     search_fields = ['title', 'description']

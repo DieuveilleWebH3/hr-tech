@@ -45,7 +45,7 @@ class Note(models.Model):
     tracker = FieldTracker()
 
     def __str__(self):
-        return self.title
+        return str(self.title) + ' - ' + str(self.language)
 
     class Meta:
         ordering = ['-updated_at']

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'account',
     'dashboard',
     'import_export',
+    'gTTS',
     'candidat',
     'mission',
     'note',
