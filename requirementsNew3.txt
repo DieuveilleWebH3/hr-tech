@@ -14,7 +14,6 @@ diff-match-patch==20200713
 Django==3.1.1
 django-crispy-forms==1.13.0
 django-extensions==3.1.3
-Django-Gtts==0.4
 django-import-export==2.5.0
 django-inspectdb==0.2.1
 django-model-utils==4.2.0
@@ -28,7 +27,6 @@ docx2pdf==0.1.7
 docx2txt==0.8
 et-xmlfile==1.1.0
 exception==0.1.0
-gTTS==2.2.3
 gunicorn==20.0.4
 html5lib==1.1
 idna==2.10
