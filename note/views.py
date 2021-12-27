@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST, require_GET
+from django.views.decorators.http import require_http_methods, require_POST, require_GET
 from django.contrib import messages
 from .models import *
 from .forms import *
@@ -43,19 +43,23 @@ def editNote(request):
 
 
 @login_required(redirect_field_name='login')
+@require_POST
+@require_http_methods(["POST"])
 def addNote(request):
     user = request.user
 
-    if request.method == 'POST':
-        form = NoteAddForm(data=request.POST)
-        if form.is_valid():
-            # user = form.save()
-            # update_session_auth_hash(request, user)  # Important!
-            # messages.success(request, 'Your password was successfully updated!')
-            # return redirect('change_password')
-            return True
-        else:
-            messages.warning(request, 'An error has occurred ! Please input the right information.')
+    form = NoteAddForm(data=request.POST)
+
+    if form.is_valid():
+        nForm = form.save(commit=False)
+        nForm.author = user
+
+        nForm.save()
+
+        messages.success(request, 'Successfully added note.')
+
+    else:
+        messages.warning(request, 'An error has occurred ! Please input the right information.')
 
     return redirect('notes')
 

@@ -128,22 +128,13 @@
 
                     <form style="grid-area: form; width: 90%; margin: auto;" method='POST'  action="{% url 'addNote' %}">
                         {% csrf_token %}
+
                         {{ nForm|crispy}}
 
-                        <div class="form-group multiple-form-group">
-
-                            <div class="selectBox">
-                                <select class="form-control">
-                                    <option> Choose the Project(s)*</option>
-                                </select>
-                                <div class="overSelect">
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <button type='submit' class="float-right btn btn-primary btn-user">Add note</button>
+                        <button type='submit' class="float-right btn btn-primary btn-user">
+                            <i class="fas fa-plus-circle"></i>
+                            Add note
+                        </button>
 
                     </form>
 

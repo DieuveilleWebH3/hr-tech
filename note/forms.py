@@ -18,6 +18,9 @@ class NoteEditForm(forms.ModelForm):
 
 
 class NoteAddForm(forms.ModelForm):
+
+    # language = forms.ChoiceField(choices=LANGUAGE_CHOICES)
+
     class Meta:
         model = Note
 
@@ -27,12 +30,12 @@ class NoteAddForm(forms.ModelForm):
             ('en-us', 'English (usa)'),
         )
 
-        # fields = ['title', 'description', 'language']
-        fields = ['title', 'description']
+        fields = ['title', 'language', 'description']
+        # fields = ['title', 'description']
         labels = {
             "title": "Note Title",
-            "description": "Description",
-            # "language": "Language"
+            "language": "Language",
+            "description": "Description"
         }
         """ 
         widgets = {
