@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load crispy_forms_tags %}
+
 <html lang="en">
 
     <head>
@@ -13,7 +15,7 @@
 
         <link rel="icon" type="image/png" href="{% static 'assets/img/technip_energies_icon.png' %}"/>
 
-        <title>{% block title %}   |   HR TECH {% endblock %}</title>
+        <title>{% block title %} {% endblock %}   |   HR TECH</title>
 
         <!-- Custom fonts for this template-->
         <link href="{% static 'assets/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">

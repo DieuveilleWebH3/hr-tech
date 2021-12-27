@@ -19,15 +19,19 @@ from django.db.models import Q
 
 def notes(request):
     note_list = Note.objects.all()
+    nForm = NoteAddForm()
 
     template_name = 'note/notes.html'
-    context = {'note_list': note_list}
+    context = {
+        'note_list': note_list,
+        'nForm': nForm
+    }
     # we return the template with the variables in context
     return render(request, template_name, context)
 
 
 @login_required(redirect_field_name='login')
-def edit(request):
+def editNote(request):
     user = request.user
 
     # form = NoteAddForm(data=request.POST)
@@ -39,7 +43,7 @@ def edit(request):
 
 
 @login_required(redirect_field_name='login')
-def add(request):
+def addNote(request):
     user = request.user
 
     if request.method == 'POST':

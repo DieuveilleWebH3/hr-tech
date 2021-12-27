@@ -26,10 +26,13 @@ urlpatterns = [
 
     path('', include('dashboard.urls')),
 
+    # path('candidat/', include(('candidat.urls', 'candidat'), namespace='candidat')),
     path('candidat/', include('candidat.urls')),
 
+    # path('mission/', include(('mission.urls', 'mission'), namespace='mission')),
     path('mission/', include('mission.urls')),
 
+    # path('note/', include(('note.urls', 'note'), namespace='note')),
     path('note/', include('note.urls')),
 ]
 

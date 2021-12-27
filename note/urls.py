@@ -10,10 +10,10 @@ urlpatterns = [
     path('', views.notes, name="notes"),
 
     # we add the URL for the add view, to allow user to create notes.
-    path('add/', views.add, name="add"),
+    path('add/', views.addNote, name="addNote"),
 
     # we add the URL for the edit view, to allow user to update notes.
-    path('edit/', views.edit, name="edit"),
+    path('edit/', views.editNote, name="editNote"),
 
     # we add the URL for the projects_delete to delete a project.
     path('<str:slug>/delete/', views.note_delete, name="note_delete"),
