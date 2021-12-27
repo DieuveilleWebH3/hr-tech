@@ -34,6 +34,11 @@ urlpatterns = [
 
     # path('note/', include(('note.urls', 'note'), namespace='note')),
     path('note/', include('note.urls')),
+
+    # for unauthorized access dynamic translation
+    path('gtts/', include('gTTS.urls')),
+    # for user authorized dynamic translation
+    path('gtts_auth/', include('gTTS.urls_auth')),
 ]
 
 

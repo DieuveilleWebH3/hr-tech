@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 
+{% load gTTS %}
+
+{% load static %}
+
 {% load crispy_forms_tags %}
 
 {% load crispy_forms_filters %}
 
-{% load static %}
-
 {% block title %} Note {% endblock %}
 
 {% block head_css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/deploy.css' %}">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
 {% endblock %}
 
@@ -74,6 +75,7 @@
                                     <th data-field="owner" data-sortable="true" data-visible="true" >Language</th>
                                     <th data-field="access" data-sortable="true" data-visible="true" >Description</th>
                                     <th data-field="created_at" data-visible="false" > Created at</th>
+                                    <th data-field="read" data-visible="false">Read</th>
                                     <th data-field="action" >Open</th>
                                     <th data-field="link"  data-visible="false" >Link</th>
                                     <th data-field="delete" style="text-align: center;">Delete</th>
@@ -87,6 +89,11 @@
                                         <td>{{ note.get_language_display }}</td>
                                         <td>{{ note.description }}</td>
                                         <td>{{ note.created_at  }}</td>
+
+                                        <td>
+                                            <audio src="{% say note.language note.description %}" controls></audio>
+                                        </td>
+
                                         <td> <a href="{{ note.get_absolute_url }}"> Open</a></td>
                                         <td>{{ note.get_absolute_url }}</td>
 
@@ -195,6 +202,10 @@
                 '<div>',
                     '<table style="width=100%" class="table"> ',
                         '<tbody>',
+                                '<th scope="read">Read</th>',
+                                '<td>',
+                                    row.read,
+                                '</td>',
                                 '<th scope="created_at">Created at</th>',
                                 '<td>',
                                     row.created_at,
