@@ -11,6 +11,9 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED=1
 
+RUN apt-get update && apt-get upgrade -y && apt-get install -y
+RUN apt-get update && apt-get -y install sudo
+
 # Install pip requirements
 COPY requirements.txt .
 RUN python -m pip install -r requirements.txt

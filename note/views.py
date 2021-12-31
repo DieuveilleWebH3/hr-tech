@@ -5,8 +5,6 @@ from django.views.decorators.http import require_http_methods, require_POST, req
 from django.contrib import messages
 from .models import *
 from .forms import *
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.core.files.storage import FileSystemStorage
 import datetime
