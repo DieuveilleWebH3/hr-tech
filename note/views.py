@@ -74,6 +74,8 @@ def note_delete(request, slug):
     if user.is_active and (user.is_superuser or note.author == user):
         # We delete the note
         note.delete()
+
+        messages.success(request, 'Successfully deleted note.')
     else:
         messages.warning(request, 'Sorry you don\'t have permission to delete this note! please contact your admin.')
     return redirect("notes")

@@ -10,6 +10,7 @@ from django.core.files.storage import FileSystemStorage
 import datetime
 from django.urls import reverse
 import requests
+import shutil
 from django.db.models import Q
 
 
@@ -46,7 +47,7 @@ def editMission(request):
 def addMission(request):
     user = request.user
 
-    form = MissionAddForm(data=request.POST)
+    form = MissionAddForm(data=request.POST, files=request.FILES)
 
     if form.is_valid():
         mForm = form.save(commit=False)
@@ -62,18 +63,24 @@ def addMission(request):
     return redirect('missions')
 
 
-# We create a view to delete a note
+# We create a view to delete a mission
 @login_required(redirect_field_name='login')
 def mission_delete(request, slug):
     # We request a user
     user = request.user
-    # we retrieve the slug to retrieve the chosen project
+    # we retrieve the slug to retrieve the chosen mission
     mission = get_object_or_404(Mission, slug=slug)
 
-    # We check if the current user has superuser status or has access to the project
+    # We check if the current user has superuser status or has access to the mission
     if user.is_active and (user.is_superuser or mission.author == user):
-        # We delete the note
+        # We delete the mission
         mission.delete()
+        # We retrieve the directory linked to the mission
+        folder = os.path.join(BASE_DIR, 'media', 'missions', mission.slug)
+        # We remove that directory as well
+        shutil.rmtree(folder)
+
+        messages.success(request, 'Successfully deleted mission.')
     else:
         messages.warning(request, 'Sorry you don\'t have permission to delete this mission! please contact your admin.')
     return redirect("missions")

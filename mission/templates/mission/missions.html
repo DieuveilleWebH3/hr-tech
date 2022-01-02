@@ -72,11 +72,11 @@
                                 <tr>
                                     <th data-field="id" data-visible="false" >ID</th>
                                     <th data-field="name" data-sortable="true" >Title</th>
-                                    <th data-field="owner" data-sortable="true" data-visible="true" >Job description</th>
-                                    <th data-field="access" data-sortable="true" data-visible="false" >Prime</th>
+                                    <th data-field="owner" data-visible="false" >Job description</th>
+                                    <th data-field="access" data-sortable="true" data-visible="true" >Prime</th>
                                     <th data-field="created_at" data-visible="false" > Created at</th>
                                     <th data-field="action" >Open</th>
-                                    <th data-field="link"  data-visible="false">Link</th>
+                                    <th data-field="link" data-visible="false">Link</th>
                                     <th data-field="delete" style="text-align: center;">Delete</th>
                                 </tr>
                             </thead>
@@ -87,14 +87,14 @@
                                         <td>{{ mission.title }}</td>
                                         <td>{{ mission.description }}</td>
                                         <td>{{ mission.get_prime_display }}</td>
-                                        <td>{{ mission.created_at  }}</td>
+                                        <td>{{ mission.created_at }}</td>
 
                                         <td> <a href="{{ mission.get_absolute_url }}"> Open</a></td>
                                         <td>{{ mission.get_absolute_url }}</td>
 
                                         <td style="text-align: center;" >
                                             <div class="text-center">
-                                                <a id="deleteNote" data-toggle="modal" data-slug="{{ mission.slug }}" data-target="#deleteModal" class="" href='{{ mission.get_delete_url }}'>
+                                                <a id="deleteMission" data-toggle="modal" data-slug="{{ mission.slug }}" data-target="#deleteModal" class="" href='{{ mission.get_delete_url }}'>
                                                     <i style="color: #e74a3b;" class="fas fa-times fa-2x" ></i>
                                                 </a>
                                             </div>
@@ -128,7 +128,7 @@
 
                 <div class="card-body">
 
-                    <form style="grid-area: form; width: 90%; margin: auto;" method='POST'  action="{% url 'addMission' %}">
+                    <form style="grid-area: form; width: 90%; margin: auto;" method='POST'  action="{% url 'addMission' %}" enctype="multipart/form-data">
                         {% csrf_token %}
 
                         {{ mForm|crispy}}
@@ -155,7 +155,7 @@
         </div>
       </div>
     
-    <!-- Delete Note Modal-->
+    <!-- Delete Mission Modal-->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -197,6 +197,11 @@
                 '<div>',
                     '<table style="width=100%" class="table"> ',
                         '<tbody>',
+                                '<th scope="created_at">Description</th>',
+                                '<td>',
+                                    row.job_description,
+                                '</td>',
+
                                 '<th scope="created_at">Created at</th>',
                                 '<td>',
                                     row.created_at,
