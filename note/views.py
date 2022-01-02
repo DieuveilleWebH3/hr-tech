@@ -75,6 +75,6 @@ def note_delete(request, slug):
         # We delete the note
         note.delete()
     else:
-        messages.warning(request, 'Sorry you don\'t have permission to delete this te! please contact your admin.')
+        messages.warning(request, 'Sorry you don\'t have permission to delete this note! please contact your admin.')
     return redirect("notes")
 

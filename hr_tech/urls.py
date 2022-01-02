@@ -38,7 +38,7 @@ urlpatterns = [
     # for unauthorized access dynamic translation
     path('gtts/', include('gTTS.urls')),
     # for user authorized dynamic translation
-    path('gtts_auth/', include('gTTS.urls_auth')),
+    # path('gtts_auth/', include('gTTS.urls_auth')),
 ]
 
 

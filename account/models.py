@@ -18,7 +18,7 @@ class User(AbstractUser):
         return 'users/{0}/{1}'.format(instance.username, filename)
     
     email = models.EmailField(unique=True)
-    account_type = models.CharField(max_length=10, choices=ACCOUNT_TYPE_CHOICES, default='2')
+    account_type = models.CharField(max_length=10, choices=ACCOUNT_TYPE_CHOICES, default='1')
 
     date_of_birth = models.DateField(blank=True, null=True)
     photo = models.ImageField(upload_to=get_upload_path, blank=True)
