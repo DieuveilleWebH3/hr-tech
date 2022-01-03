@@ -84,7 +84,7 @@ def candidate_delete(request, id):
 
     # we retrieve the slug to retrieve the chosen mission
     id = int(id)
-    candidate = get_object_or_404(Mission, id=id)
+    candidate = get_object_or_404(Candidates, id=id)
 
     # We check if the current user has superuser status or has access to the mission
     if user.is_active and (user.is_superuser or candidate.author == user):
@@ -94,5 +94,5 @@ def candidate_delete(request, id):
         messages.success(request, 'Successfully deleted candidate.')
     else:
         messages.warning(request, 'Sorry you don\'t have permission to delete this candidate! please contact your admin.')
-    return redirect("missions")
+    return redirect("candidates")
 
