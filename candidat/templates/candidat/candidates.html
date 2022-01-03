@@ -8,7 +8,7 @@
 
 {% load crispy_forms_filters %}
 
-{% block title %} Note {% endblock %}
+{% block title %} Candidate {% endblock %}
 
 {% block head_css %}
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
@@ -32,7 +32,7 @@
             <div style="text-align: right;">
                 <a href="#addModal" data-toggle="modal" type="submit" style="color:#ffffff" class="btn btn-success btn-icon-split" >
                     <span class="icon text-white-50"><i class="fas fa-folder-plus"></i></span>
-                    <span class="text">Add Note</span>
+                    <span class="text">Add Candidate</span>
                 </a>
             </div>
         
@@ -41,10 +41,10 @@
     <div class='row'>
         <div style="width: 95%; margin: auto;" class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-list"></i> My Notes </h6>
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-list"></i> My Candidates </h6>
             </div>
             <div class="card-body">
-                {% if note_list|length > 0 %}
+                {% if candidate_list|length > 0 %}
                     <div class="card-body">
                         <table
                             class="table table-bordered"
@@ -67,42 +67,50 @@
                             data-detail-view="true"
                             data-detail-formatter="detailService"
                             data-show-export="true"
-                            data-export-options='{"fileName": "Notes"}'>
+                            data-export-options='{"fileName": "Candidate"}'>
                             <thead>
                                 <tr>
                                     <th data-field="id" data-visible="false" >ID</th>
-                                    <th data-field="name" data-sortable="true" >Title</th>
-                                    <th data-field="owner" data-sortable="true" data-visible="true" >Language</th>
-                                    <th data-field="access" data-sortable="true" data-visible="true" >Description</th>
+                                    <th data-field="first_name" data-sortable="true" >First name</th>
+                                    <th data-field="last_name" data-sortable="true" >Last name</th>
+                                    <th data-field="email" data-sortable="true" >Email</th>
+                                    <th data-field="title" data-sortable="true" >Title</th>
+                                    <th data-field="phone_number" data-visible="true" >Phone number</th>
+
+                                    <th data-field="mission" data-visible="true" >Mission</th>
+
                                     <th data-field="created_at" data-visible="false" > Created at</th>
-                                    <th data-field="read" data-visible="false">Read</th>
                                     <th data-field="action" >Open</th>
-                                    <th data-field="link"  data-visible="false" >Link</th>
+                                    <th data-field="link" data-visible="false">Link</th>
                                     <th data-field="delete" style="text-align: center;">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for note in note_list %}
+                                {% for candidate in candidate_list %}
                                     <tr>
-                                        <td>{{ note.id }}</td>
-                                        <td>{{ note.title }}</td>
-                                        <td>{{ note.get_language_display }}</td>
-                                        <td>{{ note.description }}</td>
-                                        <td>{{ note.created_at  }}</td>
+                                        <td>{{ candidate.id }}</td>
+                                        <td>{{ candidate.first_name }}</td>
+                                        <td>{{ candidate.last_name }}</td>
+                                        <td>{{ candidate.email }}</td>
+                                        <td>{{ candidate.title }}</td>
+                                        <td>{{ candidate.phone_number }}</td>
 
                                         <td>
-                                            to come
-                                            <!--
-                                            {#  <audio src="{% say note.language note.description %}" controls></audio> #}
-                                            -->
+                                            {% if  candidate.mission %}
+                                                {{ candidate.mission.title }}
+                                            {% else %}
+                                                No mission
+                                            {% endif %}
                                         </td>
 
-                                        <td> <a href="{{ note.get_absolute_url }}"> Open</a></td>
-                                        <td>{{ note.get_absolute_url }}</td>
+                                        <td>{{ candidate.created_at }}</td>
+
+                                        <td> <a href="{{ candidate.get_absolute_url }}"> Open</a></td>
+                                        <td>{{ candidate.get_absolute_url }}</td>
 
                                         <td style="text-align: center;" >
                                             <div class="text-center">
-                                                <a id="deleteNote" data-toggle="modal" data-slug="{{ note.slug }}" data-target="#deleteModal" class="" href='{{ note.get_delete_url }}'>
+                                                <a id="deleteCandidate" data-toggle="modal" data-id="{{ candidate.id }}" data-target="#deleteModal" class="" href='{{ candidate.get_delete_url }}'>
                                                     <i style="color: #e74a3b;" class="fas fa-times fa-2x" ></i>
                                                 </a>
                                             </div>
@@ -115,7 +123,7 @@
 
                 {% else %}
                     <div style="display: flex; height: 50vh; width: 100%; justify-content: center; align-items: center; font-size: 1.4em;">
-                        No note added
+                        No candidate added
                     </div>
                 {% endif %}
             </div>
@@ -127,7 +135,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add Note</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Add Candidate</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
               </button>
@@ -136,16 +144,29 @@
 
                 <div class="card-body">
 
-                    <form style="grid-area: form; width: 90%; margin: auto;" method='POST'  action="{% url 'addNote' %}">
+                    <form style="grid-area: form; width: 90%; margin: auto;" method='POST'  action="{% url 'addCandidate' %}" enctype="multipart/form-data">
                         {% csrf_token %}
 
-                        {{ nForm|crispy}}
+                        {{ cForm|crispy}}
+
+                        <div class="form-group multiple-form-group">
+
+                            <label for="mission">Mission</label>
+
+                            <select class="form-control" id="mission" name="mission" required>
+                                <option> Choose the Mission *</option>
+                                {% for m in missions %}
+                                    <option value="{{m.id}}"> {{m.title}}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
 
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
 
                         <button type='submit' class="float-right btn btn-primary btn-user">
                             <i class="fas fa-plus-circle"></i>
-                            Add note
+                            Add candidate
                         </button>
 
                     </form>
@@ -160,18 +181,18 @@
         </div>
       </div>
     
-    <!-- Delete Note Modal-->
+    <!-- Delete Candidate Modal-->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Delete Note Definitely?</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Delete Candidate Definitely?</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
               </button>
             </div>
             <div class="modal-body">
-                Select "Delete" below if you want to delete the note definitely.
+                Select "Delete" below if you want to delete the candidate definitely.
                 <i class="fas fa-exclamation-triangle"> This action cannot be undone!</i>
             </div>
             <div class="modal-footer">
@@ -202,10 +223,11 @@
                 '<div>',
                     '<table style="width=100%" class="table"> ',
                         '<tbody>',
-                                '<th scope="read">Read</th>',
+                                '<th scope="created_at">Description</th>',
                                 '<td>',
-                                    row.read,
+                                    row.job_description,
                                 '</td>',
+
                                 '<th scope="created_at">Created at</th>',
                                 '<td>',
                                     row.created_at,
@@ -220,11 +242,11 @@
 
 
         $(document).ready(function(){
-            $(document).on("click", "#deleteNote", function () {
+            $(document).on("click", "#deleteCandidate", function () {
 
-                var prjSlug = $(this).data('slug');
-                console.log(prjSlug);
-                var my_link = "{% url 'note_delete' slug='9999999999999'  %}"
+                var prjSlug = $(this).data('id');
+                console.log(prjSlug, parseInt(prjSlug));
+                var my_link = "{% url 'candidate_delete' id='9999999999999'  %}"
                 var link = my_link.replace('9999999999999', prjSlug);
                 $('#deleteModal').find('.modal-footer a')[0].href = link
             });

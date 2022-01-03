@@ -22,17 +22,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('account/', include('account.urls')),
-    # path('', include('account.urls')),
 
     path('', include('dashboard.urls')),
 
-    # path('candidat/', include(('candidat.urls', 'candidat'), namespace='candidat')),
-    path('candidat/', include('candidat.urls')),
+    path('candidate/', include('candidat.urls')),
 
-    # path('mission/', include(('mission.urls', 'mission'), namespace='mission')),
     path('mission/', include('mission.urls')),
 
-    # path('note/', include(('note.urls', 'note'), namespace='note')),
     path('note/', include('note.urls')),
 
     # for unauthorized access dynamic translation
