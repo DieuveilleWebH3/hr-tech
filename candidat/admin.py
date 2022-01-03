@@ -8,7 +8,7 @@ from .models import *
 # NotesAdmin
 @admin.register(Candidates)
 class CandidateAdmin(ImportExportModelAdmin):
-    list_display = ('id', 'author', 'first_name', 'last_name', 'email', 'title', 'phone_number', 'mission', 'created_at', 'updated_at')
+    list_display = ('id', 'author', 'first_name', 'last_name', 'email', 'title', 'resume', 'phone_number', 'mission', 'created_at', 'updated_at')
     list_filter = ['created_at', 'author', 'mission']
     search_fields = ['first_name', 'last_name', 'title', 'mission']
 

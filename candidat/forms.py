@@ -9,7 +9,7 @@ import os
 class CandidateEditForm(forms.ModelForm):
     class Meta:
         model = Candidates
-        fields = ['first_name', 'last_name', 'email', 'title', 'phone_number']
+        fields = ['first_name', 'last_name', 'email', 'title', 'resume', 'phone_number']
         widgets = {
             'title': forms.TextInput(attrs={'readonly': 'readonly'}),
         }
@@ -25,13 +25,14 @@ class CandidateAddForm(forms.ModelForm):
     class Meta:
         model = Candidates
 
-        fields = ['first_name', 'last_name', 'email', 'title', 'phone_number']
+        fields = ['first_name', 'last_name', 'email', 'title', 'resume', 'phone_number']
 
         labels = {
             "first_name": "First Name",
             "last_name": "Last Name",
             "email": "Email",
             "title": "Title",
+            "resume": "Resume",
             "phone_number": "Phone number"
         }
 

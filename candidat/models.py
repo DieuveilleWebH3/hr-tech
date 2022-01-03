@@ -30,11 +30,17 @@ Image.MAX_IMAGE_PIXELS = None
 
 class Candidates(models.Model):
 
+    def get_upload_path(filename):
+        return 'candidates/{0}'.format(filename)
+
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     first_name = models.CharField(max_length=120)
     last_name = models.CharField(max_length=120)
     email = models.EmailField()  # models.CharField(max_length=250)
     title = models.CharField(max_length=250)
+
+    resume = models.FileField(upload_to='candidates/', blank=True)
+
     phone_number = PhoneNumberField(blank=True, null=True)
 
     mission = models.ForeignKey(Mission, related_name='mission', null=True, on_delete=models.SET_NULL)
